@@ -2,7 +2,7 @@ Example:
 
 ```php
 $config = [
-    'storage' => \rock\mongodb\Connection
+    'storage' => new \rock\mongodb\Connection(),
     'cacheCollection' => 'cache'
 ];
 $mongoCache = new \rock\mongodb\Cache($config);
