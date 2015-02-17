@@ -8,7 +8,6 @@ Independent fork by [Yii2 MongoDB](https://github.com/yiisoft/yii2/tree/master/e
 [![Latest Stable Version](https://poser.pugx.org/romeOz/rock-mongodb/v/stable.svg)](https://packagist.org/packages/romeOz/rock-mongodb)
 [![Total Downloads](https://poser.pugx.org/romeOz/rock-mongodb/downloads.svg)](https://packagist.org/packages/romeOz/rock-mongodb)
 [![Build Status](https://travis-ci.org/romeOz/rock-mongodb.svg?branch=master)](https://travis-ci.org/romeOz/rock-mongodb)
-[![HHVM Status](http://hhvm.h4cc.de/badge/romeoz/rock-mongodb.svg)](http://hhvm.h4cc.de/package/romeoz/rock-mongodb)
 [![Coverage Status](https://coveralls.io/repos/romeOz/rock-mongodb/badge.svg?branch=master)](https://coveralls.io/r/romeOz/rock-mongodb?branch=master)
 [![License](https://poser.pugx.org/romeOz/rock-mongodb/license.svg)](https://packagist.org/packages/romeOz/rock-mongodb)
 
