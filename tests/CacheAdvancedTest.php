@@ -92,26 +92,6 @@ class CacheAdvancedTest extends MongoDbTestCase
 
     /**
      * @dataProvider providerCache
-     */
-    public function testGetHashMd5Tags(CacheInterface $cache)
-    {
-        $this->markTestSkipped(
-            __METHOD__ . ' skipped. Changed behavior TravisCI.'
-        );
-    }
-
-    /**
-     * @dataProvider providerCache
-     */
-    public function testGetHashSHATags(CacheInterface $cache)
-    {
-        $this->markTestSkipped(
-            __METHOD__ . ' skipped. Changed behavior TravisCI.'
-        );
-    }
-
-    /**
-     * @dataProvider providerCache
      * @expectedException \rock\cache\CacheException
      */
     public function testExistsTag(CacheInterface $cache)
