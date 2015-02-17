@@ -5,6 +5,13 @@ This extension requires MongoDB PHP Extension version 1.5.0 or higher.
 
 Independent fork by [Yii2 MongoDB](https://github.com/yiisoft/yii2/tree/master/extensions/mongodb).
 
+[![Latest Stable Version](https://poser.pugx.org/romeOz/rock-mongodb/v/stable.svg)](https://packagist.org/packages/romeOz/rock-mongodb)
+[![Total Downloads](https://poser.pugx.org/romeOz/rock-mongodb/downloads.svg)](https://packagist.org/packages/romeOz/rock-mongodb)
+[![Build Status](https://travis-ci.org/romeOz/rock-mongodb.svg?branch=master)](https://travis-ci.org/romeOz/rock-mongodb)
+[![HHVM Status](http://hhvm.h4cc.de/badge/romeoz/rock-mongodb.svg)](http://hhvm.h4cc.de/package/romeoz/rock-mongodb)
+[![Coverage Status](https://coveralls.io/repos/romeOz/rock-mongodb/badge.svg?branch=master)](https://coveralls.io/r/romeOz/rock-mongodb?branch=master)
+[![License](https://poser.pugx.org/romeOz/rock-mongodb/license.svg)](https://packagist.org/packages/romeOz/rock-mongodb)
+
 [Rock MongoDB on Packagist](https://packagist.org/packages/romeOz/rock-mongodb)
 
 Features
@@ -62,8 +69,8 @@ $users = Users::find()
     
 // insert
 $users = new Users();
-$users ->name = 'Tom';
-$users ->save();    
+$users->name = 'Tom';
+$users->save();    
 ```
 
 Documentation
@@ -82,7 +89,7 @@ Requirements
  * [Rock Validate](https://github.com/romeOz/rock-validate) **(optional)**. Should be installed: `composer require romeoz/rock-validate:*`
  * [Rock Sanitize](https://github.com/romeOz/rock-sanitize) **(optional)**. Should be installed: `composer require romeoz/rock-sanitize:*`
  * [Rock Behaviors](https://github.com/romeOz/rock-behaviors) **(optional)**. Should be installed: `composer require romeoz/rock-behaviors:*`
- * [Rock Session](https://github.com/romeOz/rock-behaviors) **(optional)**. Should be installed: `composer require romeoz/rock-session:*`
+ * [Rock Session](https://github.com/romeOz/rock-session) **(optional)**. Should be installed: `composer require romeoz/rock-session:*`
 
 License
 -------------------
