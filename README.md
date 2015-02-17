@@ -1,4 +1,4 @@
-ORM for MongoDB.
+ORM for MongoDB
 =======================
 
 This extension requires MongoDB PHP Extension version 1.5.0 or higher.
