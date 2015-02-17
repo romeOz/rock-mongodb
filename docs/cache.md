@@ -1,3 +1,5 @@
+Example:
+
 ```php
 $config = [
     'storage' => \rock\mongodb\Connection
