@@ -29,12 +29,16 @@ install:
   - composer self-update && composer --version
   - composer install --prefer-dist
   - composer require satooshi/php-coveralls:*@dev
+  - tests/data/travis/mongodb-setup.sh
+
+before_script:
+  - mongo rocktest --eval 'db.addUser("travis", "test");'
 
 script:
   - mkdir -p build/logs
   - |
     if (php --version | grep -i HipHop > /dev/null); then
-      vendor/bin/phpunit --verbose --exclude-group php
+      vendor/bin/phpunit --verbose --exclude-group php,mongodb
     else
       vendor/bin/phpunit --verbose --coverage-clover build/logs/clover.xml --exclude-group hhvm
     fi
