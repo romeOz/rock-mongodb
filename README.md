@@ -34,14 +34,14 @@ Installation
 
 From the Command Line:
 
-`composer require romeoz/rock-mongodb:*`
+`composer require romeoz/rock-mongodb:*@dev`
 
 In your composer.json:
 
 ```json
 {
     "require": {
-        "romeoz/rock-mongodb": "*"
+        "romeoz/rock-mongodb": "*@dev"
     }
 }
 ```
