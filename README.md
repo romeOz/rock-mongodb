@@ -1,4 +1,4 @@
-ORM for MongoDB
+ODM for MongoDB
 =======================
 
 This extension requires MongoDB PHP Extension version 1.5.0 or higher.
@@ -17,7 +17,7 @@ Features
 -------------------
  
  * Query Builder/DBAL/DAO: Querying the database using a simple abstraction layer
- * Active Record: The Active Record ORM, retrieving and manipulating records, and defining relations
+ * Active Record: The Active Record ODM, retrieving and manipulating records, and defining relations
  * Support [MongoGridFS](http://docs.mongodb.org/manual/core/gridfs/)
  * Behaviors (SluggableBehavior, TimestampBehavior,...)
  * Stores session data in a collection
@@ -34,14 +34,14 @@ Installation
 
 From the Command Line:
 
-`composer require romeoz/rock-mongodb:*@dev`
+`composer require romeoz/rock-mongodb:*`
 
 In your composer.json:
 
 ```json
 {
     "require": {
-        "romeoz/rock-mongodb": "*@dev"
+        "romeoz/rock-mongodb": "*"
     }
 }
 ```
@@ -93,4 +93,4 @@ Requirements
 License
 -------------------
 
-The Object Relational Mapping (ORM) for MongoDB is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+The Object Document Mapping (ODM) for MongoDB is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
