@@ -51,9 +51,11 @@ class Session extends \rock\session\Session
         parent::init();
         $this->connection = Instance::ensure($this->connection, Connection::className());
 
-        $this->connection
-            ->getCollection($this->sessionCollection)
-            ->createIndex('expire', ['expireAfterSeconds' => 0]);
+        if (!$this->getIsActive()) {
+            $this->connection
+                ->getCollection($this->sessionCollection)
+                ->createIndex('expire', ['expireAfterSeconds' => 0]);
+        }
     }
 
     /**
