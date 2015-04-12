@@ -3,7 +3,7 @@ ODM for MongoDB
 
 This extension requires MongoDB PHP Extension version 1.5.0 or higher.
 
-Independent fork by [Yii2 MongoDB](https://github.com/yiisoft/yii2/tree/master/extensions/mongodb).
+Standalone fork by [Yii2 MongoDB](https://github.com/yiisoft/yii2/tree/master/extensions/mongodb).
 
 [![Latest Stable Version](https://poser.pugx.org/romeOz/rock-mongodb/v/stable.svg)](https://packagist.org/packages/romeOz/rock-mongodb)
 [![Total Downloads](https://poser.pugx.org/romeOz/rock-mongodb/downloads.svg)](https://packagist.org/packages/romeOz/rock-mongodb)
