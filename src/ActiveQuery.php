@@ -1,6 +1,10 @@
 <?php
 namespace rock\mongodb;
 
+use rock\db\common\ActiveQueryInterface;
+use rock\db\common\ActiveQueryTrait;
+use rock\db\common\ActiveRelationTrait;
+
 /**
  * ActiveQuery represents a Mongo query associated with an Active Record class.
  *

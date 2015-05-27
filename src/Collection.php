@@ -5,6 +5,7 @@ namespace rock\mongodb;
 use rock\base\ObjectInterface;
 use rock\base\ObjectTrait;
 use rock\cache\CacheInterface;
+use rock\db\common\CommonCacheTrait;
 use rock\helpers\Instance;
 use rock\helpers\Trace;
 
@@ -65,7 +66,7 @@ use rock\helpers\Trace;
 class Collection implements ObjectInterface
 {
     use ObjectTrait;
-    use CacheTrait;
+    use CommonCacheTrait;
 
     /**
      * @var \MongoCollection Mongo collection instance.

@@ -3,6 +3,7 @@ namespace rock\mongodb;
 
 use rock\components\ComponentsInterface;
 use rock\components\ComponentsTrait;
+use rock\db\common\MigrationInterface;
 use rock\helpers\Instance;
 use rock\helpers\Json;
 

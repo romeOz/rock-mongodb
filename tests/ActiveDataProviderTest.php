@@ -2,7 +2,7 @@
 
 namespace rockunit;
 
-use rock\db\ActiveDataProvider;
+use rock\db\common\ActiveDataProvider;
 use rockunit\models\ActiveRecord;
 use rockunit\models\Customer;
 use rock\mongodb\Query;

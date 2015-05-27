@@ -4,6 +4,9 @@ namespace rock\mongodb;
 use rock\cache\CacheInterface;
 use rock\components\ComponentsTrait;
 use rock\components\ModelEvent;
+use rock\db\common\CommonCacheTrait;
+use rock\db\common\QueryInterface;
+use rock\db\common\QueryTrait;
 use rock\helpers\Instance;
 use rock\helpers\Json;
 use rock\helpers\Trace;
@@ -32,7 +35,7 @@ class Query implements QueryInterface
         ComponentsTrait::__call as parentCall;
     }
     use QueryTrait;
-    use CacheTrait;
+    use CommonCacheTrait;
 
     /**
      * @event Event an event that is triggered after the record is created and populated with query result.

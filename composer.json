@@ -1,6 +1,6 @@
 {
     "name": "romeoz/rock-mongodb",
-    "description": "Object Relational Mapping (ORM) for MongoDB.",
+    "description": "Object Document Mapper (ODM) for MongoDB.",
     "keywords": ["mongodb", "mongo", "orm", "active record", "dbal", "dao", "query builder"],
     "type": "library",
     "license": "MIT",
@@ -17,7 +17,7 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "romeoz/rock-components" : "0.10.*"
+        "romeoz/rock-db-common": "0.10.*@dev"
     },
     "require-dev": {
         "phpunit/phpunit": "4.6.*",
@@ -30,8 +30,7 @@
         "romeoz/rock-cache": "required by Rock Cache",
         "romeoz/rock-validate": "required by Rock Valiadte",
         "romeoz/rock-sanitize": "required by Rock Sanitize",
-        "romeoz/rock-behaviors": "required by Rock Behaviors",
-        "romeoz/rock-di": "required by module Rock Dependency Injection"
+        "romeoz/rock-behaviors": "required by Rock Behaviors"
     },
     "autoload": {
         "psr-4": {

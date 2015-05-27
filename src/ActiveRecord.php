@@ -1,6 +1,7 @@
 <?php
 namespace rock\mongodb;
 
+use rock\db\common\BaseActiveRecord;
 use rock\helpers\Inflector;
 use rock\helpers\Instance;
 use rock\helpers\ObjectHelper;

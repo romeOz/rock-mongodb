@@ -1,8 +1,9 @@
 <?php
 namespace rock\mongodb\file;
-use rock\mongodb\ActiveQueryInterface;
-use rock\mongodb\ActiveQueryTrait;
-use rock\mongodb\ActiveRelationTrait;
+
+use rock\db\common\ActiveQueryTrait;
+use rock\db\common\ActiveRelationTrait;
+use rock\db\common\ActiveQueryInterface;
 
 /**
  * ActiveQuery represents a Mongo query associated with an file Active Record class.
