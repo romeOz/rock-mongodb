@@ -2,11 +2,11 @@
 ## Project
 ############
 
-./build/
-vendor
+/build/
+/vendor
 composer.lock
-./index.php
-./php.php
+/index.php
+/php.php
 assets/*
 views/*
 *~
