@@ -564,7 +564,7 @@ class Collection implements ObjectInterface
         }
     }
 
-    protected function clearCache($tables, $rawSql)
+    protected function clearCache($table, $rawSql)
     {
         if (!$this->connection->autoClearCache) {
             return;
@@ -575,7 +575,8 @@ class Collection implements ObjectInterface
         if (!$cache instanceof CacheInterface) {
             return;
         }
-        $cache->removeMultiTags($this->connection->queryCacheTags ? : [$this->getName()]);
+        $tables = $this->connection->queryCacheTags ? : [$table];
+        $cache->removeMultiTags($tables);
 
         $token = [
             'dsn' => $this->connection->dsn,
