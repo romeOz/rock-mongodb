@@ -106,9 +106,6 @@ class Connection implements ComponentsInterface
      * @var \MongoClient Mongo client instance.
      */
     public $mongoClient;
-
-    public $typeCast = true;
-
     /**
      * @var boolean whether to enable query caching.
      * Note that in order to enable query caching, a valid cache component as specified

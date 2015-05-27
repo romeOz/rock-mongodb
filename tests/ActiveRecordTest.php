@@ -340,31 +340,31 @@ class ActiveRecordTest extends MongoDbTestCase
 
         $result = Customer::find();
         $this->assertTrue($result instanceof ActiveQuery);
-        $customer = $result->beginCache()->one($connection);
+        $customer = $result->cache()->one($connection);
         $this->assertTrue($customer instanceof Customer);
 
         // cache
         $this->assertFalse(Trace::getIterator('mongodb.query')->current()['cache']);
-        $customer = $result->beginCache()->one($connection);
+        $customer = $result->cache()->one($connection);
         $this->assertTrue($customer instanceof Customer);
         $this->assertTrue(Trace::getIterator('mongodb.query')->current()['cache']);
 
         $cache->flush();
         Trace::removeAll();
 
-        $result->where(['name' => 'unexisting name'])->beginCache()->one($connection);
+        $result->where(['name' => 'unexisting name'])->cache()->one($connection);
         $this->assertFalse(Trace::getIterator('mongodb.query')->current()['cache']);
-        $customer = $result->where(['name' => 'unexisting name'])->beginCache()->one($connection);
+        $customer = $result->where(['name' => 'unexisting name'])->cache()->one($connection);
         $this->assertNull($customer);
         $this->assertTrue(Trace::getIterator('mongodb.query')->current()['cache']);
 
         $cache->flush();
         Trace::removeAll();
 
-        $this->assertEquals((1+10)/2, Customer::find()->beginCache()->average('status', $connection));
+        $this->assertEquals((1+10)/2, Customer::find()->cache()->average('status', $connection));
         $this->assertFalse(Trace::getIterator('mongodb.query')->current()['cache']);
 
-        $this->assertEquals((1+10)/2, Customer::find()->beginCache()->average('status', $connection));
+        $this->assertEquals((1+10)/2, Customer::find()->cache()->average('status', $connection));
         $this->assertTrue(Trace::getIterator('mongodb.query')->current()['cache']);
     }
 }

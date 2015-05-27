@@ -79,7 +79,7 @@ class QueryRunTest extends MongoDbTestCase
         $this->assertTrue(Trace::getIterator('mongodb.query')->current()['cache']);
 
         // end cache
-        $rows = $query->endCache()->all($connection);
+        $rows = $query->notCache()->all($connection);
         $this->assertEquals(10, count($rows));
         $this->assertFalse(Trace::getIterator('mongodb.query')->current()['cache']);
         $this->assertSame(3, Trace::getIterator('mongodb.query')->current()['count']);

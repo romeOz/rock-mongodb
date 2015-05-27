@@ -217,7 +217,7 @@ class CollectionTest extends MongoDbTestCase
         $this->assertTrue(Trace::getIterator('mongodb.query')->current()['cache']);
 
         // end cache
-        $result = $collection->endCache()->group($keys, $initial, $reduce);
+        $result = $collection->notCache()->group($keys, $initial, $reduce);
         $this->assertEquals(2, count($result));
         $this->assertNotEmpty($result[0]['address']);
         $this->assertNotEmpty($result[0]['items']);
