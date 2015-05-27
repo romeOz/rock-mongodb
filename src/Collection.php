@@ -495,7 +495,7 @@ class Collection implements ObjectInterface
             'valid' => true,
             'cache' => false,
         ];
-        //Rock::info($rawQuery);
+        //Log::info($rawQuery);
         Trace::beginProfile('mongodb.query', $token);
         try {
             $options = array_merge(['w' => 1], $options);
@@ -546,6 +546,7 @@ class Collection implements ObjectInterface
         try {
             $result = $this->mongoCollection->update($condition, $newData, $options);
             $this->tryResultError($result);
+            $this->clearCache($this->getName(), $rawQuery);
             Trace::endProfile('mongodb.query', $token);
             Trace::trace('mongodb.query', $token);
             if (is_array($result) && array_key_exists('n', $result)) {
@@ -561,6 +562,27 @@ class Collection implements ObjectInterface
             Trace::trace('mongodb.query', $token);
             throw new MongoException($message, [], $e);
         }
+    }
+
+    protected function clearCache($tables, $rawSql)
+    {
+        if (!$this->connection->autoClearCache) {
+            return;
+        }
+
+        /** @var $cache CacheInterface */
+        $cache = Instance::ensure($this->connection->queryCache, null, false);
+        if (!$cache instanceof CacheInterface) {
+            return;
+        }
+        $cache->removeMultiTags($this->connection->queryCacheTags ? : [$this->getName()]);
+
+        $token = [
+            'dsn' => $this->connection->dsn,
+            'sql' => $rawSql,
+            'message' => 'Clear cache by tags: '. implode(',', $tables),
+        ];
+        Trace::trace('cache.mongodb', $token);
     }
 
     /**
@@ -579,11 +601,12 @@ class Collection implements ObjectInterface
             'valid' => true,
             'cache' => false,
         ];
-        //Rock::info($rawQuery);
+        //Log::info($rawQuery);
         Trace::beginProfile('mongodb.query', $token);
         try {
             $options = array_merge(['w' => 1], $options);
             $this->tryResultError($this->mongoCollection->save($data, $options));
+            $this->clearCache($this->getName(), $rawQuery);
             Trace::endProfile('mongodb.query', $token);
             Trace::trace('mongodb.query', $token);
 
@@ -622,6 +645,7 @@ class Collection implements ObjectInterface
         try {
             $result = $this->mongoCollection->remove($condition, $options);
             $this->tryResultError($result);
+            $this->clearCache($this->getName(), $rawQuery);
             Trace::endProfile('mongodb.query', $token);
             Trace::trace('mongodb.query', $token);
             if (is_array($result) && array_key_exists('n', $result)) {
