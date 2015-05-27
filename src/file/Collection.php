@@ -48,7 +48,7 @@ class Collection extends \rock\mongodb\Collection
     /**
      * Removes data from the collection.
      *
-*@param array $condition description of records to remove.
+     * @param array $condition description of records to remove.
      * @param array $options list of options in format: optionName => optionValue.
      * @return integer|boolean number of updated documents or whether operation was successful.
      * @throws MongoException on failure.

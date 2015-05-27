@@ -1,7 +1,6 @@
 <?php
 namespace rock\mongodb;
 
-use rock\db\BaseActiveRecord;
 use rock\helpers\Inflector;
 use rock\helpers\Instance;
 use rock\helpers\ObjectHelper;
@@ -204,7 +203,6 @@ abstract class ActiveRecord extends BaseActiveRecord
      * @param null $attributes
      * @return bool
      * @throws MongoException
-     * @throws \rock\db\DbException
      */
     protected function insertInternal($attributes = null)
     {

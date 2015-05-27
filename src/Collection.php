@@ -5,7 +5,6 @@ namespace rock\mongodb;
 use rock\base\ObjectInterface;
 use rock\base\ObjectTrait;
 use rock\cache\CacheInterface;
-use rock\db\CacheTrait;
 use rock\helpers\Instance;
 use rock\helpers\Trace;
 
