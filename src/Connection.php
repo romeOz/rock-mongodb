@@ -139,7 +139,16 @@ class Connection implements ComponentsInterface
      * @see enableQueryCache
      */
     public $queryCache = 'cache';
-
+    /**
+     * Automatic clear cache by tags (as tables).
+     * @var bool
+     */
+    public $autoClearCache = false;
+    /**
+     * Convert result to type.
+     * @var bool
+     */
+    public $typeCast = true;
     /**
      * @var Database[] list of Mongo databases
      */
@@ -168,7 +177,7 @@ class Connection implements ComponentsInterface
      * Returns {@see \rock\mongodb\Connection::$defaultDatabaseName} value, if it is not set,
      * attempts to determine it from {@see \rock\mongodb\Connection::$dsn} value.
      *
-*@return string default database name
+     * @return string default database name
      * @throws MongoException if unable to determine default database name.
      */
     protected function fetchDefaultDatabaseName()
@@ -257,7 +266,7 @@ class Connection implements ComponentsInterface
      * Establishes a Mongo connection.
      * It does nothing if a Mongo connection has already been established.
      *
-*@throws MongoException if connection fails
+     * @throws MongoException if connection fails
      */
     public function open()
     {

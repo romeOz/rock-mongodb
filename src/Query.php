@@ -125,7 +125,7 @@ class Query implements QueryInterface
     /**
      * Fetches rows from the given Mongo cursor.
      *
-*@param \MongoCursor $cursor Mongo cursor instance to fetch data from.
+     * @param \MongoCursor $cursor Mongo cursor instance to fetch data from.
      * @param boolean $all whether to fetch all rows or only first one.
      * @param string|callable $indexBy the column name or PHP callback,
      * by which the query results should be indexed by.
