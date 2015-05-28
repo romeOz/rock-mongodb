@@ -2,6 +2,7 @@
 
 namespace rock\mongodb\file;
 
+use rock\db\common\ConnectionInterface;
 use rock\helpers\Instance;
 use rock\mongodb\Connection;
 
@@ -19,10 +20,10 @@ class Query extends \rock\mongodb\Query
     /**
      * Returns the Mongo collection for this query.
      *
-     * @param \rock\mongodb\Connection $connection Mongo connection.
+     * @param ConnectionInterface $connection Mongo connection.
      * @return Collection collection instance.
      */
-    public function getCollection($connection = null)
+    public function getCollection(ConnectionInterface $connection = null)
     {
         if ($connection === null) {
             $this->connection = Instance::ensure($this->connection, Connection::className());

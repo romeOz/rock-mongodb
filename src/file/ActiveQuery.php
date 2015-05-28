@@ -177,10 +177,10 @@ class ActiveQuery extends Query implements ActiveQueryInterface
     /**
      * Returns the Mongo collection for this query.
      *
-     * @param \rock\mongodb\Connection $connection Mongo connection.
+     * @param ConnectionInterface $connection Mongo connection.
      * @return Collection collection instance.
      */
-    public function getCollection($connection = null)
+    public function getCollection(ConnectionInterface $connection = null)
     {
         /* @var $modelClass ActiveRecord */
         $modelClass = $this->modelClass;

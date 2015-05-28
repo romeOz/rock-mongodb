@@ -391,11 +391,11 @@ class Query implements QueryInterface
      *
      * @param string $q the column name.
      * Make sure you properly quote column names in the expression.
-     * @param Connection $connection the database connection used to generate the SQL statement.
+     * @param ConnectionInterface $connection the database connection used to generate the SQL statement.
      * If this parameter is not given, the `db` application component will be used.
      * @return integer the minimum of the specified column values.
      */
-    public function min($q, $connection = null)
+    public function min($q, ConnectionInterface $connection = null)
     {
         return $this->aggregate($q, 'min', $connection);
     }
@@ -405,11 +405,11 @@ class Query implements QueryInterface
      *
      * @param string $q the column name.
      * Make sure you properly quote column names in the expression.
-     * @param Connection $connection the Mongo connection used to execute the query.
+     * @param ConnectionInterface $connection the Mongo connection used to execute the query.
      * If this parameter is not given, the `mongodb` application component will be used.
      * @return integer the maximum of the specified column values.
      */
-    public function max($q, $connection = null)
+    public function max($q, ConnectionInterface $connection = null)
     {
         return $this->aggregate($q, 'max', $connection);
     }
@@ -422,7 +422,7 @@ class Query implements QueryInterface
      * @param ConnectionInterface $connection the database connection used to execute the query.
      * @return integer aggregation result.
      */
-    protected function aggregate($column, $operator, ConnectionInterface $connection)
+    protected function aggregate($column, $operator, ConnectionInterface $connection = null)
     {
         $collection = $this->getCollection($connection);
         $pipelines = [];
