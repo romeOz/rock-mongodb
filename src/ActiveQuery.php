@@ -4,6 +4,7 @@ namespace rock\mongodb;
 use rock\db\common\ActiveQueryInterface;
 use rock\db\common\ActiveQueryTrait;
 use rock\db\common\ActiveRelationTrait;
+use rock\db\common\ConnectionInterface;
 
 /**
  * ActiveQuery represents a Mongo query associated with an Active Record class.
@@ -118,11 +119,11 @@ class ActiveQuery extends Query implements ActiveQueryInterface
 
     /**
      * Executes query and returns all results as an array.
-     * @param Connection $connection the Mongo connection used to execute the query.
+     * @param ConnectionInterface|Connection $connection the Mongo connection used to execute the query.
      * If null, the Mongo connection returned by {@see \rock\db\ActiveQueryTrait::$modelClass} will be used.
      * @return array the query results. If the query results in nothing, an empty array will be returned.
      */
-    public function all($connection = null)
+    public function all(ConnectionInterface $connection = null)
     {
         // before
         /** @var ActiveRecord $model */
@@ -140,13 +141,13 @@ class ActiveQuery extends Query implements ActiveQueryInterface
     /**
      * Executes query and returns a single row of result.
      *
-     * @param Connection $connection the Mongo connection used to execute the query.
+     * @param ConnectionInterface|Connection $connection the Mongo connection used to execute the query.
      * If null, the Mongo connection returned by {@see \rock\db\ActiveQueryTrait::$modelClass} will be used.
      * @return ActiveRecord|array|null a single row of query result. Depending on the setting of {@see \rock\db\ActiveQueryTrait::$asArray},
      * the query result may be either an array or an ActiveRecord object. Null will be returned
      * if the query results in nothing.
      */
-    public function one($connection = null)
+    public function one(ConnectionInterface $connection = null)
     {
         // before
         /** @var ActiveRecord $model */
@@ -171,12 +172,12 @@ class ActiveQuery extends Query implements ActiveQueryInterface
      *
      * @param array $update update criteria
      * @param array $options list of options in format: optionName => optionValue.
-     * @param Connection $connection the Mongo connection used to execute the query.
+     * @param ConnectionInterface $connection the Mongo connection used to execute the query.
      * @return ActiveRecord|array|null the original document, or the modified document when $options['new'] is set.
      * Depending on the setting of {@see \rock\db\ActiveQueryTrait::$asArray}, the query result may be either an array or an ActiveRecord object.
      * Null will be returned if the query results in nothing.
      */
-    public function modify($update, $options = [], $connection = null)
+    public function modify($update, $options = [], ConnectionInterface$connection = null)
     {
         $row = parent::modify($update, $options, $connection);
         if ($row !== null) {
@@ -190,10 +191,10 @@ class ActiveQuery extends Query implements ActiveQueryInterface
     /**
      * Returns the Mongo collection for this query.
      *
-     * @param Connection $connection Mongo connection.
+     * @param ConnectionInterface $connection Mongo connection.
      * @return Collection collection instance.
      */
-    public function getCollection($connection = null)
+    public function getCollection(ConnectionInterface $connection = null)
     {
         /* @var $modelClass ActiveRecord */
         $modelClass = $this->modelClass;

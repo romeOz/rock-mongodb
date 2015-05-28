@@ -106,10 +106,10 @@ class Query implements QueryInterface
     /**
      * Returns the Mongo collection for this query.
      *
-     * @param Connection $connection Mongo connection.
+     * @param ConnectionInterface $connection Mongo connection.
      * @return Collection collection instance.
      */
-    public function getCollection($connection = null)
+    public function getCollection(ConnectionInterface $connection = null)
     {
         if ($connection === null) {
             $this->connection = Instance::ensure($this->connection, Connection::className());
@@ -149,10 +149,10 @@ class Query implements QueryInterface
     /**
      * Builds the Mongo cursor for this query.
      *
-     * @param Connection $connection the database connection used to execute the query.
+     * @param ConnectionInterface $connection the database connection used to execute the query.
      * @return \MongoCursor mongo cursor instance.
      */
-    protected function buildCursor($connection = null)
+    protected function buildCursor(ConnectionInterface $connection = null)
     {
         $cursor = $this->getCollection($connection)->find($this->composeCondition(), $this->composeSelectFields());
         if (!empty($this->orderBy)) {
@@ -244,11 +244,11 @@ class Query implements QueryInterface
 
     /**
      * Executes the query and returns all results as an array.
-     * @param Connection $connection the Mongo connection used to execute the query.
+     * @param ConnectionInterface|Connection $connection the Mongo connection used to execute the query.
      * If this parameter is not given, the `mongodb` application component will be used.
      * @return array the query results. If the query results in nothing, an empty array will be returned.
      */
-    public function all($connection = null)
+    public function all(ConnectionInterface $connection = null)
     {
         // before
         if (!$this->beforeFind()) {
@@ -262,12 +262,12 @@ class Query implements QueryInterface
 
     /**
      * Executes the query and returns a single row of result.
-     * @param Connection $connection the Mongo connection used to execute the query.
+     * @param ConnectionInterface|Connection $connection the Mongo connection used to execute the query.
      * If this parameter is not given, the `mongodb` application component will be used.
      * @return array|null the first row (in terms of an array) of the query result. False is returned if the query
      * results in nothing.
      */
-    public function one($connection = null)
+    public function one(ConnectionInterface $connection = null)
     {
         // before
         if (!$this->beforeFind()) {
@@ -284,10 +284,10 @@ class Query implements QueryInterface
      *
      * @param array $update update criteria
      * @param array $options list of options in format: optionName => optionValue.
-     * @param Connection $connection the Mongo connection used to execute the query.
+     * @param ConnectionInterface $connection the Mongo connection used to execute the query.
      * @return array|null the original document, or the modified document when $options['new'] is set.
      */
-    public function modify($update, $options = [], $connection = null)
+    public function modify($update, $options = [], ConnectionInterface $connection = null)
     {
         // before
         if (!$this->beforeFind()) {
@@ -306,12 +306,12 @@ class Query implements QueryInterface
      * Returns the number of records.
      *
      * @param string $q kept to match {@see \rock\db\QueryInterface}, its value is ignored.
-     * @param Connection $connection the Mongo connection used to execute the query.
+     * @param ConnectionInterface|Connection $connection the Mongo connection used to execute the query.
      * If this parameter is not given, the `mongodb` application component will be used.
      * @return integer number of records
      * @throws MongoException on failure.
      */
-    public function count($q = '*', $connection = null)
+    public function count($q = '*', ConnectionInterface $connection = null)
     {
         $cursor = $this->buildCursor($connection);
         $rawQuery = 'find(' . Json::encode($cursor->info()) . ')';
@@ -349,11 +349,11 @@ class Query implements QueryInterface
     /**
      * Returns a value indicating whether the query result contains any row of data.
      *
-     * @param Connection $connection the Mongo connection used to execute the query.
+     * @param ConnectionInterface|Connection $connection the Mongo connection used to execute the query.
      * If this parameter is not given, the `mongodb` application component will be used.
      * @return boolean whether the query result contains any row of data.
      */
-    public function exists($connection = null)
+    public function exists(ConnectionInterface $connection = null)
     {
         return (bool)$this->one($connection);
     }
@@ -363,11 +363,11 @@ class Query implements QueryInterface
      *
      * @param string $q the column name.
      * Make sure you properly quote column names in the expression.
-     * @param Connection $connection the Mongo connection used to execute the query.
+     * @param ConnectionInterface $connection the Mongo connection used to execute the query.
      * If this parameter is not given, the `mongodb` application component will be used.
      * @return integer the sum of the specified column values
      */
-    public function sum($q, $connection = null)
+    public function sum($q, ConnectionInterface $connection = null)
     {
         return $this->aggregate($q, 'sum', $connection);
     }
@@ -377,11 +377,11 @@ class Query implements QueryInterface
      *
      * @param string $q the column name.
      * Make sure you properly quote column names in the expression.
-     * @param Connection $connection the Mongo connection used to execute the query.
+     * @param ConnectionInterface $connection the Mongo connection used to execute the query.
      * If this parameter is not given, the `mongodb` application component will be used.
      * @return integer the average of the specified column values.
      */
-    public function average($q, $connection = null)
+    public function average($q, ConnectionInterface $connection = null)
     {
         return $this->aggregate($q, 'avg', $connection);
     }
@@ -419,10 +419,10 @@ class Query implements QueryInterface
      *
      * @param string $column column name.
      * @param string $operator aggregation operator.
-     * @param Connection $connection the database connection used to execute the query.
+     * @param ConnectionInterface $connection the database connection used to execute the query.
      * @return integer aggregation result.
      */
-    protected function aggregate($column, $operator, $connection)
+    protected function aggregate($column, $operator, ConnectionInterface $connection)
     {
         $collection = $this->getCollection($connection);
         $pipelines = [];
@@ -449,11 +449,11 @@ class Query implements QueryInterface
      * Returns a list of distinct values for the given column across a collection.
      *
      * @param string $q column to use.
-     * @param Connection $connection the Mongo connection used to execute the query.
+     * @param ConnectionInterface $connection the Mongo connection used to execute the query.
      * If this parameter is not given, the `mongodb` application component will be used.
      * @return array array of distinct values
      */
-    public function distinct($q, $connection = null)
+    public function distinct($q, ConnectionInterface $connection = null)
     {
         $collection = $this->getCollection($connection);
         if ($this->where !== null) {

@@ -4,6 +4,7 @@ namespace rock\mongodb\file;
 use rock\db\common\ActiveQueryTrait;
 use rock\db\common\ActiveRelationTrait;
 use rock\db\common\ActiveQueryInterface;
+use rock\db\common\ConnectionInterface;
 
 /**
  * ActiveQuery represents a Mongo query associated with an file Active Record class.
@@ -64,7 +65,7 @@ class ActiveQuery extends Query implements ActiveQueryInterface
     /**
      * @inheritdoc
      */
-    protected function buildCursor($connection = null)
+    protected function buildCursor(ConnectionInterface $connection = null)
     {
         if ($this->primaryModel !== null) {
             // lazy loading
@@ -96,11 +97,11 @@ class ActiveQuery extends Query implements ActiveQueryInterface
     /**
      * Executes query and returns all results as an array.
      *
-     * @param \rock\mongodb\Connection $connection the Mongo connection used to execute the query.
+     * @param ConnectionInterface|\rock\mongodb\Connection $connection the Mongo connection used to execute the query.
      * If null, the Mongo connection returned by {@see \rock\db\ActiveQueryTrait::$modelClass} will be used.
      * @return array the query results. If the query results in nothing, an empty array will be returned.
      */
-    public function all($connection = null)
+    public function all(ConnectionInterface $connection = null)
     {
         // before
         /** @var ActiveRecord $activeRecord */
@@ -131,13 +132,13 @@ class ActiveQuery extends Query implements ActiveQueryInterface
     /**
      * Executes query and returns a single row of result.
      *
-     * @param \rock\mongodb\Connection $connection the Mongo connection used to execute the query.
+     * @param ConnectionInterface|\rock\mongodb\Connection $connection the Mongo connection used to execute the query.
      * If null, the Mongo connection returned by {@see \rock\db\ActiveQueryTrait::$modelClass} will be used.
      * @return ActiveRecord|array|null a single row of query result. Depending on the setting of {@see \rock\db\ActiveQueryTrait::$asArray},
      * the query result may be either an array or an ActiveRecord object. Null will be returned
      * if the query results in nothing.
      */
-    public function one($connection = null)
+    public function one(ConnectionInterface $connection = null)
     {
         // before
         /** @var ActiveRecord $model */
