@@ -3,6 +3,7 @@ namespace rock\mongodb;
 
 use rock\components\ComponentsInterface;
 use rock\components\ComponentsTrait;
+use rock\db\common\ConnectionInterface;
 use rock\helpers\Instance;
 use rock\helpers\Trace;
 
@@ -62,7 +63,7 @@ use rock\helpers\Trace;
  * @property file\Collection $fileCollection Mongo GridFS collection instance. This property is read-only.
  * @property boolean $isActive Whether the Mongo connection is established. This property is read-only.
  */
-class Connection implements ComponentsInterface
+class Connection implements ComponentsInterface, ConnectionInterface
 {
     use ComponentsTrait;
 

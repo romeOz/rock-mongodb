@@ -5,8 +5,11 @@ use rock\cache\CacheInterface;
 use rock\components\ComponentsTrait;
 use rock\components\ModelEvent;
 use rock\db\common\CommonCacheTrait;
+use rock\db\common\ConnectionInterface;
 use rock\db\common\QueryInterface;
 use rock\db\common\QueryTrait;
+use rock\helpers\ArrayHelper;
+use rock\helpers\Helper;
 use rock\helpers\Instance;
 use rock\helpers\Json;
 use rock\helpers\Trace;
@@ -56,10 +59,49 @@ class Query implements QueryInterface
      */
     public $from;
     /**
-     * @var Connection|string
+     * @var ConnectionInterface|Connection|string
      */
     public $connection = 'mongodb';
 
+    /**
+     * @param ConnectionInterface $connection DB/Sphinx connection instance
+     * @return static the query object itself
+     */
+    public function setConnection(ConnectionInterface $connection)
+    {
+        /** @var self|Query $this */
+        $this->connection = $this->calculateCacheParams($connection);
+        return $this;
+    }
+
+    /**
+     * @return Connection connection instance
+     */
+    public function getConnection()
+    {
+        /** @var self|Query $this */
+
+        $this->connection = Instance::ensure($this->connection, Connection::className());
+        return $this->calculateCacheParams($this->connection);
+    }
+
+    /**
+     * @param array      $rows
+     * @param ConnectionInterface $connection
+     * @return array
+     */
+    public function typeCast($rows, ConnectionInterface $connection = null)
+    {
+        if (isset($connection)) {
+            $this->setConnection($connection);
+        }
+        $connection = $this->getConnection();
+        if ($connection->typeCast) {
+            $rows = is_array($rows) ? ArrayHelper::toType($rows) : Helper::toType($rows);
+        }
+
+        return $rows;
+    }
 
     /**
      * Returns the Mongo collection for this query.

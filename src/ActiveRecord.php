@@ -201,7 +201,7 @@ abstract class ActiveRecord extends BaseActiveRecord
 
     /**
      * @see ActiveRecord::insert()
-     * @param null $attributes
+     * @param array|null $attributes
      * @return bool
      * @throws MongoException
      */
@@ -231,6 +231,7 @@ abstract class ActiveRecord extends BaseActiveRecord
     }
 
     /**
+     * @inheritdoc
      * @see ActiveRecord::update()
      * @throws MongoException
      */

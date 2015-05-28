@@ -85,6 +85,7 @@ abstract class ActiveRecord extends \rock\mongodb\ActiveRecord
     }
 
     /**
+     * @inheritdoc
      * @see ActiveRecord::insert()
      */
     protected function insertInternal($attributes = null)
@@ -127,6 +128,7 @@ abstract class ActiveRecord extends \rock\mongodb\ActiveRecord
     }
 
     /**
+     * @inheritdoc
      * @see ActiveRecord::update()
      * @throws MongoException
      */
