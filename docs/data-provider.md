@@ -7,7 +7,7 @@ ActiveDataProvider provides data by performing MongoDB queries using `rock\mongo
 The following is an example of using it to provide ActiveRecord instances:
 
 ```php
-$provider = new \rock\db\ActiveDataProvider([
+$provider = new \rock\db\common\ActiveDataProvider([
     'query' => Articles::find()->orderBy('id ASC'),
     'pagination' => [
         'limit' => 20,
