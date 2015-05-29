@@ -11,21 +11,21 @@ use rock\db\common\ConnectionInterface;
  *
  * An ActiveQuery can be a normal query or be used in a relational context.
  *
- * ActiveQuery instances are usually created by {@see \rock\db\ActiveRecordInterface::find()}.
- * Relational queries are created by {@see \rock\db\BaseActiveRecord::hasOne()} and {@see \rock\db\BaseActiveRecord::hasMany()}.
+ * ActiveQuery instances are usually created by {@see \rock\db\common\ActiveRecordInterface::find()}.
+ * Relational queries are created by {@see \rock\db\common\BaseActiveRecord::hasOne()} and {@see \rock\db\common\BaseActiveRecord::hasMany()}.
  *
  * Normal Query
  * ------------
  *
- * ActiveQuery instances are usually created by {@see \rock\db\ActiveRecordInterface::find()}.
+ * ActiveQuery instances are usually created by {@see \rock\db\common\ActiveRecordInterface::find()}.
  *
- * Because ActiveQuery extends from {@see \rock\mongodb\Query}, one can use query methods, such as {@see \rock\db\QueryInterface::where()},
- * {@see \rock\db\QueryInterface::orderBy()} to customize the query options.
+ * Because ActiveQuery extends from {@see \rock\mongodb\Query}, one can use query methods, such as {@see \rock\db\common\QueryInterface::where()},
+ * {@see \rock\db\common\QueryInterface::orderBy()} to customize the query options.
  *
  * ActiveQuery also provides the following additional query options:
  *
- * - {@see \rock\db\ActiveQueryInterface::with()}: list of relations that this query should be performed with.
- * - {@see \rock\db\ActiveQueryInterface::asArray()}: whether to return each record as an array.
+ * - {@see \rock\db\common\ActiveQueryInterface::with()}: list of relations that this query should be performed with.
+ * - {@see \rock\db\common\ActiveQueryInterface::asArray()}: whether to return each record as an array.
  *
  * These options can be configured using methods of the same name. For example:
  *
@@ -38,8 +38,8 @@ use rock\db\common\ConnectionInterface;
  *
  * In relational context ActiveQuery represents a relation between two Active Record classes.
  *
- * Relational ActiveQuery instances are usually created by calling {@see \rock\db\BaseActiveRecord::hasOne()} and
- * {@see \rock\db\BaseActiveRecord::hasMany()}. An Active Record class declares a relation by defining
+ * Relational ActiveQuery instances are usually created by calling {@see \rock\db\common\BaseActiveRecord::hasOne()} and
+ * {@see \rock\db\common\BaseActiveRecord::hasMany()}. An Active Record class declares a relation by defining
  * a getter method which calls one of the above methods and returns the created ActiveQuery object.
  *
  * A relation is specified by {@see \rock\db\ActiveRelationTrait::$link} which represents the association between columns

@@ -301,7 +301,7 @@ class Query implements QueryInterface
     /**
      * Returns the number of records.
      *
-     * @param string $q kept to match {@see \rock\db\QueryInterface}, its value is ignored.
+     * @param string $q kept to match {@see \rock\db\common\QueryInterface}, its value is ignored.
      * @param ConnectionInterface|Connection $connection the Mongo connection used to execute the query.
      * If this parameter is not given, the `mongodb` application component will be used.
      * @return integer number of records
@@ -468,7 +468,7 @@ class Query implements QueryInterface
     /**
      * This method is called when the AR object is created and populated with the query result.
      *
-     * The default implementation will trigger an {@see \rock\db\BaseActiveRecord::EVENT_BEFORE_FIND} event.
+     * The default implementation will trigger an {@see \rock\db\common\BaseActiveRecord::EVENT_BEFORE_FIND} event.
      * When overriding this method, make sure you call the parent implementation to ensure the
      * event is triggered.
      */

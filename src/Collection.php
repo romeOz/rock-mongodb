@@ -1070,7 +1070,7 @@ class Collection implements ObjectInterface
     /**
      * Parses the condition specification and generates the corresponding Mongo condition.
      *
-     * @param array $condition the condition specification. Please refer to {@see \rock\db\QueryInterface::where()}
+     * @param array $condition the condition specification. Please refer to {@see \rock\db\common\QueryInterface::where()}
      * on how to specify a condition.
      * @return array the generated Mongo condition
      * @throws MongoException if the condition is in bad format

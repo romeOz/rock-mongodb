@@ -112,7 +112,7 @@ class Connection implements ComponentsInterface, ConnectionInterface
      * Note that in order to enable query caching, a valid cache component as specified
      * by {@see \rock\mongodb\Connection::$queryCache} must be enabled and {@see \rock\mongodb\Connection::$enableQueryCache} must be set true.
      *
-     * Methods {@see \rock\db\QueryInterface::beginCache()} and {@see \rock\db\QueryInterface::endCache()} can be used as shortcuts to turn on
+     * Methods {@see \rock\db\common\QueryInterface::beginCache()} and {@see \rock\db\common\QueryInterface::endCache()} can be used as shortcuts to turn on
      * and off query caching on the fly.
      * @see queryCacheExpire
      * @see queryCache
