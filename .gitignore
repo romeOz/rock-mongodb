@@ -3,12 +3,8 @@
 ############
 
 /build/
-/vendor
+/vendor/
 composer.lock
-/index.php
-/php.php
-assets/*
-views/*
 *~
 
 
@@ -26,10 +22,12 @@ Desktop.ini
 ############
 ## Vagrant
 ############
-.vagrant/*
+.vagrant/
+provisioning/
+Vagrantfile
 
 
 ############
 ## PHPStorm
 ############
-.idea/*
+.idea/
