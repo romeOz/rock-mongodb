@@ -69,7 +69,6 @@ class Query implements QueryInterface
      */
     public function setConnection(ConnectionInterface $connection)
     {
-        /** @var self|Query $this */
         $this->connection = $this->calculateCacheParams($connection);
         return $this;
     }
@@ -79,14 +78,12 @@ class Query implements QueryInterface
      */
     public function getConnection()
     {
-        /** @var self|Query $this */
-
         $this->connection = Instance::ensure($this->connection, Connection::className());
         return $this->calculateCacheParams($this->connection);
     }
 
     /**
-     * @param array      $rows
+     * @param mixed      $rows
      * @param ConnectionInterface $connection
      * @return array
      */
@@ -111,11 +108,10 @@ class Query implements QueryInterface
      */
     public function getCollection(ConnectionInterface $connection = null)
     {
-        if ($connection === null) {
-            $this->connection = Instance::ensure($this->connection, Connection::className());
-        } else {
-            $this->connection = $connection;
-        }
+        $this->connection = isset($connection)
+            ? $connection
+            : Instance::ensure($this->connection, Connection::className());
+
         $this->calculateCacheParams($this->connection);
         return $this->connection->getCollection($this->from);
     }
@@ -287,7 +283,7 @@ class Query implements QueryInterface
      * @param ConnectionInterface $connection the Mongo connection used to execute the query.
      * @return array|null the original document, or the modified document when $options['new'] is set.
      */
-    public function modify($update, $options = [], ConnectionInterface $connection = null)
+    public function modify(array $update, array $options = [], ConnectionInterface $connection = null)
     {
         // before
         if (!$this->beforeFind()) {

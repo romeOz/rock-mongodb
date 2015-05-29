@@ -184,7 +184,7 @@ class ActiveQuery extends Query implements ActiveQueryInterface
     {
         /* @var $modelClass ActiveRecord */
         $modelClass = $this->modelClass;
-        if ($connection === null) {
+        if (!isset($connection )) {
             $connection = $modelClass::getConnection();
         }
         $this->connection = $connection;

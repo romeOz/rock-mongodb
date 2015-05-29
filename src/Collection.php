@@ -108,7 +108,7 @@ class Collection implements ObjectInterface
      * @param array $arguments command arguments.
      * @return string token.
      */
-    protected function composeLogToken($command, $arguments = [])
+    protected function composeLogToken($command, array $arguments = [])
     {
         $parts = [];
         foreach ($arguments as $argument) {
@@ -232,7 +232,7 @@ class Collection implements ObjectInterface
      * @throws MongoException on failure.
      * @return boolean whether the operation successful.
      */
-    public function createIndex($columns, $options = [])
+    public function createIndex($columns, array $options = [])
     {
         if (!is_array($columns)) {
             $columns = [$columns];
@@ -331,7 +331,7 @@ class Collection implements ObjectInterface
      * @param array $columns raw columns/keys list.
      * @return array normalizes index keys array.
      */
-    protected function normalizeIndexKeys($columns)
+    protected function normalizeIndexKeys(array $columns)
     {
         $keys = [];
         foreach ($columns as $key => $value) {
@@ -387,7 +387,7 @@ class Collection implements ObjectInterface
      * @return \MongoCursor cursor for the search results
      * @see Query
      */
-    public function find($condition = [], $fields = [])
+    public function find(array $condition = [], array $fields = [])
     {
         return $this->mongoCollection->find($this->buildCondition($condition), $fields);
     }
@@ -399,7 +399,7 @@ class Collection implements ObjectInterface
      * @return array|null the single document. Null is returned if the query results in nothing.
      * @see http://www.php.net/manual/en/mongocollection.findone.php
      */
-    public function findOne($condition = [], $fields = [])
+    public function findOne(array $condition = [], array $fields = [])
     {
         return $this->mongoCollection->findOne($this->buildCondition($condition), $fields);
     }
@@ -415,7 +415,7 @@ class Collection implements ObjectInterface
      * @throws MongoException on failure.
      * @see http://www.php.net/manual/en/mongocollection.findandmodify.php
      */
-    public function findAndModify($condition, $update, $fields = [], $options = [])
+    public function findAndModify(array $condition, array $update, array $fields = [], array $options = [])
     {
         $condition = $this->buildCondition($condition);
         $rawQuery = $this->composeLogToken('findAndModify', [$condition, $update, $fields, $options]);
@@ -451,7 +451,7 @@ class Collection implements ObjectInterface
      * @return \MongoId new record id instance.
      * @throws MongoException on failure.
      */
-    public function insert($data, $options = [])
+    public function insert($data, array $options = [])
     {
         $rawQuery = $this->composeLogToken('insert', [$data]);
         $token = [
@@ -487,7 +487,7 @@ class Collection implements ObjectInterface
      * @return array inserted data, each row will have "_id" key assigned to it.
      * @throws MongoException on failure.
      */
-    public function batchInsert($rows, $options = [])
+    public function batchInsert(array $rows, array $options = [])
     {
         $rawQuery = $this->composeLogToken('batchInsert', [$rows]);
         $token = [
@@ -525,7 +525,7 @@ class Collection implements ObjectInterface
      * @return integer|boolean number of updated documents or whether operation was successful.
      * @throws MongoException on failure.
      */
-    public function update($condition, $newData, $options = [])
+    public function update(array $condition, array $newData, array $options = [])
     {
         $condition = $this->buildCondition($condition);
         $options = array_merge(['w' => 1, 'multiple' => true], $options);
@@ -594,7 +594,7 @@ class Collection implements ObjectInterface
      * @return \MongoId updated/new record id instance.
      * @throws MongoException on failure.
      */
-    public function save($data, $options = [])
+    public function save($data, array $options = [])
     {
         $rawQuery = $this->composeLogToken('save', [$data]);
         $token = [
@@ -631,7 +631,7 @@ class Collection implements ObjectInterface
      * @throws MongoException on failure.
      * @see http://www.php.net/manual/en/mongocollection.remove.php
      */
-    public function remove($condition = [], $options = [])
+    public function remove(array $condition = [], array $options = [])
     {
         $condition = $this->buildCondition($condition);
         $options = array_merge(['w' => 1, 'justOne' => false], $options);
@@ -765,7 +765,7 @@ class Collection implements ObjectInterface
      * @throws MongoException on failure.
      * @see http://docs.mongodb.org/manual/reference/command/group/
      */
-    public function group($keys, $initial, $reduce, $options = [])
+    public function group($keys, $initial, $reduce, array $options = [])
     {
         if (!($reduce instanceof \MongoCode)) {
             $reduce = new \MongoCode((string) $reduce);
@@ -856,7 +856,7 @@ class Collection implements ObjectInterface
      * @return string|array the map reduce output collection name or output results.
      * @throws MongoException on failure.
      */
-    public function mapReduce($map, $reduce, $out, $condition = [], $options = [])
+    public function mapReduce($map, $reduce, $out, array $condition = [], array $options = [])
     {
         if (!($map instanceof \MongoCode)) {
             $map = new \MongoCode((string) $map);
@@ -930,7 +930,7 @@ class Collection implements ObjectInterface
      * @return array the highest scoring documents, in descending order by score.
      * @throws MongoException on failure.
      */
-    public function fullTextSearch($search, $condition = [], $fields = [], $options = [])
+    public function fullTextSearch($search, array $condition = [], array $fields = [], array $options = [])
     {
         $command = [
             'search' => $search
@@ -1149,7 +1149,7 @@ class Collection implements ObjectInterface
      * @param array $operands the Mongo conditions to connect.
      * @return array the generated Mongo condition.
      */
-    public function buildAndCondition($operator, $operands)
+    public function buildAndCondition($operator, array $operands)
     {
         $operator = $this->normalizeConditionKeyword($operator);
         $parts = [];
@@ -1166,7 +1166,7 @@ class Collection implements ObjectInterface
      * @param array $operands the Mongo conditions to connect.
      * @return array the generated Mongo condition.
      */
-    public function buildOrCondition($operator, $operands)
+    public function buildOrCondition($operator, array $operands)
     {
         $operator = $this->normalizeConditionKeyword($operator);
         $parts = [];
@@ -1186,7 +1186,7 @@ class Collection implements ObjectInterface
      * @return array the generated Mongo condition.
      * @throws MongoException if wrong number of operands have been given.
      */
-    public function buildBetweenCondition($operator, $operands)
+    public function buildBetweenCondition($operator, array $operands)
     {
         if (!isset($operands[0], $operands[1], $operands[2])) {
             throw new MongoException("Operator '$operator' requires three operands.");
@@ -1219,7 +1219,7 @@ class Collection implements ObjectInterface
      * @return array the generated Mongo condition.
      * @throws MongoException if wrong number of operands have been given.
      */
-    public function buildInCondition($operator, $operands)
+    public function buildInCondition($operator, array $operands)
     {
         if (!isset($operands[0], $operands[1])) {
             throw new MongoException("Operator '$operator' requires two operands.");
@@ -1262,7 +1262,7 @@ class Collection implements ObjectInterface
      * @return array the generated Mongo condition.
      * @throws MongoException if wrong number of operands have been given.
      */
-    public function buildRegexCondition($operator, $operands)
+    public function buildRegexCondition($operator, array $operands)
     {
         if (!isset($operands[0], $operands[1])) {
             throw new MongoException("Operator '$operator' requires two operands.");
@@ -1284,7 +1284,7 @@ class Collection implements ObjectInterface
      * @return array the generated Mongo condition.
      * @throws MongoException if wrong number of operands have been given.
      */
-    public function buildLikeCondition($operator, $operands)
+    public function buildLikeCondition($operator, array $operands)
     {
         if (!isset($operands[0], $operands[1])) {
             throw new MongoException("Operator '$operator' requires two operands.");

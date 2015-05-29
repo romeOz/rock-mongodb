@@ -88,7 +88,7 @@ abstract class ActiveRecord extends \rock\mongodb\ActiveRecord
      * @inheritdoc
      * @see ActiveRecord::insert()
      */
-    protected function insertInternal($attributes = null)
+    protected function insertInternal(array $attributes = null)
     {
         if (!$this->beforeSave(true)) {
             return false;
@@ -132,7 +132,7 @@ abstract class ActiveRecord extends \rock\mongodb\ActiveRecord
      * @see ActiveRecord::update()
      * @throws MongoException
      */
-    protected function updateInternal($attributes = null)
+    protected function updateInternal(array $attributes = null)
     {
         if (!$this->beforeSave(false)) {
             return false;
@@ -204,7 +204,7 @@ abstract class ActiveRecord extends \rock\mongodb\ActiveRecord
     /**
      * Extracts filename from given raw file value.
      *
-*@param mixed $file raw file value.
+     * @param mixed $file raw file value.
      * @return string file name.
      * @throws MongoException on invalid file value.
      */
@@ -238,7 +238,7 @@ abstract class ActiveRecord extends \rock\mongodb\ActiveRecord
     /**
      * Returns the associated file content.
      *
-*@return null|string file content.
+     * @return null|string file content.
      * @throws MongoException on invalid file attribute value.
      */
     public function getFileContent()
@@ -272,7 +272,7 @@ abstract class ActiveRecord extends \rock\mongodb\ActiveRecord
     /**
      * Writes the the internal file content into the given filename.
      *
-*@param string $filename full filename to be written.
+     * @param string $filename full filename to be written.
      * @return boolean whether the operation was successful.
      * @throws MongoException on invalid file attribute value.
      */
@@ -304,7 +304,7 @@ abstract class ActiveRecord extends \rock\mongodb\ActiveRecord
      * which deal with reading files. The contents of the file are pulled out of MongoDB on the fly,
      * so that the whole file does not have to be loaded into memory first.
      *
-*@return resource file stream resource.
+     * @return resource file stream resource.
      * @throws MongoException on invalid file attribute value.
      */
     public function getFileResource()

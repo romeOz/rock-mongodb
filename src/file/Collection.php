@@ -53,7 +53,7 @@ class Collection extends \rock\mongodb\Collection
      * @return integer|boolean number of updated documents or whether operation was successful.
      * @throws MongoException on failure.
      */
-    public function remove($condition = [], $options = [])
+    public function remove(array $condition = [], array $options = [])
     {
         $result = parent::remove($condition, $options);
         $this->tryLastError(); // MongoGridFS::remove will return even if the remove failed
@@ -72,7 +72,7 @@ class Collection extends \rock\mongodb\Collection
      * unless an "_id" was explicitly specified in the metadata.
      * @throws MongoException on failure.
      */
-    public function insertFile($filename, $metadata = [], $options = [])
+    public function insertFile($filename, array $metadata = [], array $options = [])
     {
         $token = 'Inserting file into ' . $this->getFullName();
         //Log::info($token);
@@ -106,7 +106,7 @@ class Collection extends \rock\mongodb\Collection
      * unless an "_id" was explicitly specified in the metadata.
      * @throws MongoException on failure.
      */
-    public function insertFileContent($bytes, $metadata = [], $options = [])
+    public function insertFileContent($bytes, array $metadata = [], array $options = [])
     {
         $token = 'Inserting file content into ' . $this->getFullName();
         //Log::info($token);
@@ -140,7 +140,7 @@ class Collection extends \rock\mongodb\Collection
      * unless an "_id" was explicitly specified in the metadata.
      * @throws MongoException on failure.
      */
-    public function insertUploads($name, $metadata = [])
+    public function insertUploads($name, array $metadata = [])
     {
         $token = 'Inserting file uploads into ' . $this->getFullName();
         //Log::info($token);

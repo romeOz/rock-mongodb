@@ -36,7 +36,7 @@ abstract class ActiveRecord extends BaseActiveRecord
      * @param array $options list of options in format: optionName => optionValue.
      * @return integer the number of documents updated.
      */
-    public static function updateAll($attributes, $condition = [], $options = [])
+    public static function updateAll(array $attributes, $condition = [], array $options = [])
     {
         return static::getCollection()->update($condition, $attributes, $options);
     }
@@ -56,7 +56,7 @@ abstract class ActiveRecord extends BaseActiveRecord
      * @param array $options list of options in format: optionName => optionValue.
      * @return integer the number of documents updated.
      */
-    public static function updateAllCounters($counters, $condition = [], $options = [])
+    public static function updateAllCounters(array $counters, $condition = [], array $options = [])
     {
         return static::getCollection()->update($condition, ['$inc' => $counters], $options);
     }
@@ -76,7 +76,7 @@ abstract class ActiveRecord extends BaseActiveRecord
      * @param array $options list of options in format: optionName => optionValue.
      * @return integer the number of documents deleted.
      */
-    public static function deleteAll($condition = [], $options = [])
+    public static function deleteAll($condition = [], array $options = [])
     {
         return static::getCollection()->remove($condition, $options);
     }
@@ -189,7 +189,7 @@ abstract class ActiveRecord extends BaseActiveRecord
      * @return boolean whether the attributes are valid and the record is inserted successfully.
      * @throws \Exception in case insert failed.
      */
-    public function insert($runValidation = true, $attributes = null)
+    public function insert($runValidation = true, array $attributes = null)
     {
         if ($runValidation && !$this->validate($attributes)) {
             return false;
@@ -205,7 +205,7 @@ abstract class ActiveRecord extends BaseActiveRecord
      * @return bool
      * @throws MongoException
      */
-    protected function insertInternal($attributes = null)
+    protected function insertInternal(array $attributes = null)
     {
         if (!$this->beforeSave(true)) {
             return false;
@@ -235,7 +235,7 @@ abstract class ActiveRecord extends BaseActiveRecord
      * @see ActiveRecord::update()
      * @throws MongoException
      */
-    protected function updateInternal($attributes = null)
+    protected function updateInternal(array $attributes = null)
     {
         if (!$this->beforeSave(false)) {
             return false;

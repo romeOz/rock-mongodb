@@ -48,7 +48,7 @@ abstract class Migration implements MigrationInterface, ComponentsInterface
      * @param string|array $collection name of the collection
      * @param array $options collection options in format: "name" => "value"
      */
-    public function createCollection($collection, $options = [])
+    public function createCollection($collection, array $options = [])
     {
         if (is_array($collection)) {
             list($database, $collectionName) = $collection;
@@ -80,7 +80,7 @@ abstract class Migration implements MigrationInterface, ComponentsInterface
      * @param array|string $columns column name or list of column names.
      * @param array $options list of options in format: optionName => optionValue.
      */
-    public function createIndex($collection, $columns, $options = [])
+    public function createIndex($collection, $columns, array $options = [])
     {
         echo "    > create index on " . $this->composeCollectionLogName($collection) . " (" . Json::encode((array) $columns) . empty($options) ? "" : ", " . Json::encode($options) . ") ...";
         $time = microtime(true);
@@ -120,7 +120,7 @@ abstract class Migration implements MigrationInterface, ComponentsInterface
      * @param array $options list of options in format: optionName => optionValue.
      * @return \MongoId new record id instance.
      */
-    public function insert($collection, $data, $options = [])
+    public function insert($collection, $data, array $options = [])
     {
         echo "    > insert into " . $this->composeCollectionLogName($collection) . ") ...";
         $time = microtime(true);
@@ -136,7 +136,7 @@ abstract class Migration implements MigrationInterface, ComponentsInterface
      * @param array $options list of options in format: optionName => optionValue.
      * @return array inserted data, each row will have "_id" key assigned to it.
      */
-    public function batchInsert($collection, $rows, $options = [])
+    public function batchInsert($collection, array $rows, array $options = [])
     {
         echo "    > insert into " . $this->composeCollectionLogName($collection) . ") ...";
         $time = microtime(true);
@@ -155,7 +155,7 @@ abstract class Migration implements MigrationInterface, ComponentsInterface
      * @param array $options list of options in format: optionName => optionValue.
      * @return integer|boolean number of updated documents or whether operation was successful.
      */
-    public function update($collection, $condition, $newData, $options = [])
+    public function update($collection, array $condition, array $newData, array $options = [])
     {
         echo "    > update " . $this->composeCollectionLogName($collection) . ") ...";
         $time = microtime(true);
@@ -171,7 +171,7 @@ abstract class Migration implements MigrationInterface, ComponentsInterface
      * @param array $options list of options in format: optionName => optionValue.
      * @return \MongoId updated/new record id instance.
      */
-    public function save($collection, $data, $options = [])
+    public function save($collection, $data, array $options = [])
     {
         echo "    > save " . $this->composeCollectionLogName($collection) . ") ...";
         $time = microtime(true);
@@ -187,7 +187,7 @@ abstract class Migration implements MigrationInterface, ComponentsInterface
      * @param array $options list of options in format: optionName => optionValue.
      * @return integer|boolean number of updated documents or whether operation was successful.
      */
-    public function remove($collection, $condition = [], $options = [])
+    public function remove($collection, array $condition = [], array $options = [])
     {
         echo "    > remove " . $this->composeCollectionLogName($collection) . ") ...";
         $time = microtime(true);

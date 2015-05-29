@@ -25,11 +25,10 @@ class Query extends \rock\mongodb\Query
      */
     public function getCollection(ConnectionInterface $connection = null)
     {
-        if ($connection === null) {
-            $this->connection = Instance::ensure($this->connection, Connection::className());
-        } else {
-            $this->connection = $connection;
-        }
+        $this->connection = isset($connection)
+            ? $connection
+            : Instance::ensure($this->connection, Connection::className());
+
         $this->calculateCacheParams($this->connection);
         return $this->connection->getFileCollection($this->from);
     }

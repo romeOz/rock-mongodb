@@ -177,7 +177,7 @@ class ActiveQuery extends Query implements ActiveQueryInterface
      * Depending on the setting of {@see \rock\db\ActiveQueryTrait::$asArray}, the query result may be either an array or an ActiveRecord object.
      * Null will be returned if the query results in nothing.
      */
-    public function modify($update, $options = [], ConnectionInterface $connection = null)
+    public function modify(array $update, array $options = [], ConnectionInterface $connection = null)
     {
         $row = parent::modify($update, $options, $connection);
         if ($row !== null) {
@@ -198,7 +198,7 @@ class ActiveQuery extends Query implements ActiveQueryInterface
     {
         /* @var $modelClass ActiveRecord */
         $modelClass = $this->modelClass;
-        if ($connection === null) {
+        if (!isset($connection)) {
             $connection = $modelClass::getConnection();
         }
         $this->connection = $connection;

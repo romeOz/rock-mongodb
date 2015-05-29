@@ -113,7 +113,7 @@ class Database implements ObjectInterface
      * @return \MongoCollection new Mongo collection instance.
      * @throws MongoException on failure.
      */
-    public function createCollection($name, $options = [])
+    public function createCollection($name, array $options = [])
     {
         $rawQuery = $this->getName() . '.create(' . $name . ', ' . Json::encode($options) . ')';
         $token = [
@@ -148,7 +148,7 @@ class Database implements ObjectInterface
      * @return array database response.
      * @throws MongoException on failure.
      */
-    public function executeCommand($command, $options = [])
+    public function executeCommand($command, array $options = [])
     {
         $rawQuery = $this->getName() . '.$cmd(' . Json::encode($command) . ', ' . Json::encode($options) . ')';
         $token = [
