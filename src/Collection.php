@@ -234,9 +234,7 @@ class Collection implements ObjectInterface
      */
     public function createIndex($columns, array $options = [])
     {
-        if (!is_array($columns)) {
-            $columns = [$columns];
-        }
+        $columns = (array)$columns;
         $keys = $this->normalizeIndexKeys($columns);
         $rawQuery = $this->composeLogToken('createIndex', [$keys, $options]);
         $token = [
@@ -295,9 +293,7 @@ class Collection implements ObjectInterface
      */
     public function dropIndex($columns)
     {
-        if (!is_array($columns)) {
-            $columns = [$columns];
-        }
+        $columns = (array)$columns;
         $keys = $this->normalizeIndexKeys($columns);
         $rawQuery = $this->composeLogToken('dropIndex', [$keys]);
         $token = [
