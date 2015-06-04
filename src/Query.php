@@ -207,25 +207,15 @@ class Query implements QueryInterface
     /**
      * @param \MongoCursor $cursor Mongo cursor instance to fetch data from.
      * @param boolean $all whether to fetch all rows or only first one.
-     * @param string|callable $indexBy value to index by.
      * @return array|null result.
      * @see Query::fetchRows()
      */
-    protected function fetchRowsInternal($cursor, $all, $indexBy)
+    protected function fetchRowsInternal($cursor, $all)
     {
         $result = [];
         if ($all) {
             foreach ($cursor as $row) {
-                if ($indexBy !== null) {
-                    if (is_string($indexBy)) {
-                        $key = $row[$indexBy];
-                    } else {
-                        $key = call_user_func($indexBy, $row);
-                    }
-                    $result[$key] = $row;
-                } else {
-                    $result[] = $row;
-                }
+                $result[] = $row;
             }
         } else {
             if ($cursor->hasNext()) {
@@ -239,24 +229,6 @@ class Query implements QueryInterface
     }
 
     /**
-     * Executes the query and returns all results as an array.
-     * @param ConnectionInterface|Connection $connection the Mongo connection used to execute the query.
-     * If this parameter is not given, the `mongodb` application component will be used.
-     * @return array the query results. If the query results in nothing, an empty array will be returned.
-     */
-    public function all(ConnectionInterface $connection = null)
-    {
-        // before
-        if (!$this->beforeFind()) {
-            return [];
-        }
-
-        $cursor = $this->buildCursor($connection);
-
-        return $this->fetchRows($cursor, true, $this->indexBy);
-    }
-
-    /**
      * Executes the query and returns a single row of result.
      * @param ConnectionInterface|Connection $connection the Mongo connection used to execute the query.
      * If this parameter is not given, the `mongodb` application component will be used.
@@ -265,14 +237,56 @@ class Query implements QueryInterface
      */
     public function one(ConnectionInterface $connection = null)
     {
-        // before
+        // before event
         if (!$this->beforeFind()) {
             return null;
         }
 
         $cursor = $this->buildCursor($connection);
-
         return $this->fetchRows($cursor, false);
+    }
+
+    /**
+     * Executes the query and returns all results as an array.
+     * @param ConnectionInterface|Connection $connection the Mongo connection used to execute the query.
+     * If this parameter is not given, the `mongodb` application component will be used.
+     * @return array the query results. If the query results in nothing, an empty array will be returned.
+     */
+    public function all(ConnectionInterface $connection = null)
+    {
+        // before event
+        if (!$this->beforeFind()) {
+            return [];
+        }
+
+        $cursor = $this->buildCursor($connection);
+        $rows = $this->fetchRows($cursor, true, $this->indexBy);
+        return $this->populate($rows);
+    }
+
+
+    /**
+     * Converts the raw query results into the format as specified by this query.
+     * This method is internally used to convert the data fetched from database
+     * into the format as required by this query.
+     * @param array $rows the raw query result from database
+     * @return array the converted query result
+     */
+    public function populate($rows)
+    {
+        if ($this->indexBy === null) {
+            return $rows;
+        }
+        $result = [];
+        foreach ($rows as $row) {
+            if (is_string($this->indexBy)) {
+                $key = $row[$this->indexBy];
+            } else {
+                $key = call_user_func($this->indexBy, $row);
+            }
+            $result[$key] = $row;
+        }
+        return $result;
     }
 
     /**

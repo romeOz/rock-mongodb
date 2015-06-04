@@ -5,6 +5,7 @@ namespace rockunit;
 use rockunit\models\ActiveRecord;
 use rockunit\models\Customer;
 use rockunit\models\CustomerOrder;
+use rockunit\models\Item;
 
 /**
  * @group mongodb
@@ -22,6 +23,7 @@ class ActiveRelationTest extends MongoDbTestCase
     {
         $this->dropCollection(Customer::collectionName());
         $this->dropCollection(CustomerOrder::collectionName());
+        $this->dropCollection(Item::collectionName());
         parent::tearDown();
     }
 

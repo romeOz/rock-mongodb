@@ -118,27 +118,6 @@ class ActiveQuery extends Query implements ActiveQueryInterface
     }
 
     /**
-     * Executes query and returns all results as an array.
-     * @param ConnectionInterface|Connection $connection the Mongo connection used to execute the query.
-     * If null, the Mongo connection returned by {@see \rock\db\ActiveQueryTrait::$modelClass} will be used.
-     * @return array the query results. If the query results in nothing, an empty array will be returned.
-     */
-    public function all(ConnectionInterface $connection = null)
-    {
-        // before
-        /** @var ActiveRecord $model */
-        $model = new $this->modelClass;
-        if (!$model->beforeFind()) {
-            return [];
-        }
-
-        $cursor = $this->buildCursor($connection);
-        $rows = $this->fetchRows($cursor);
-
-        return $this->populate($rows);
-    }
-
-    /**
      * Executes query and returns a single row of result.
      *
      * @param ConnectionInterface|Connection $connection the Mongo connection used to execute the query.
@@ -163,6 +142,24 @@ class ActiveQuery extends Query implements ActiveQueryInterface
         } else {
             return null;
         }
+    }
+
+    /**
+     * Executes query and returns all results as an array.
+     * @param ConnectionInterface|Connection $connection the Mongo connection used to execute the query.
+     * If null, the Mongo connection returned by {@see \rock\db\ActiveQueryTrait::$modelClass} will be used.
+     * @return array|ActiveRecord[] the query results. If the query results in nothing, an empty array will be returned.
+     */
+    public function all(ConnectionInterface $connection = null)
+    {
+        // before event
+        /** @var ActiveRecord $model */
+        $model = new $this->modelClass;
+        if (!$model->beforeFind()) {
+            return [];
+        }
+
+        return parent::all($connection);
     }
 
     /**
