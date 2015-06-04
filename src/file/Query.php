@@ -23,11 +23,11 @@ class Query extends \rock\mongodb\Query
     public function one(ConnectionInterface $connection = null)
     {
         $row = parent::one($connection);
-        if ($row !== false) {
+        if ($row !== null) {
             $models = $this->populate([$row]);
             return reset($models) ?: null;
         } else {
-                return null;
+            return null;
         }
     }
 
