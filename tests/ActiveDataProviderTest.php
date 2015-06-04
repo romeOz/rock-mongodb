@@ -54,7 +54,7 @@ class ActiveDataProviderTest extends MongoDbTestCase
             'query' => $query,
             'connection' => $this->getConnection(),
         ]);
-        $models = $provider->get();
+        $models = $provider->getModels();
         $this->assertEquals(10, count($models));
 
         $provider = new ActiveDataProvider([
@@ -64,7 +64,7 @@ class ActiveDataProviderTest extends MongoDbTestCase
                 'limit' => 5,
             ]
         ]);
-        $models = $provider->get();
+        $models = $provider->getModels();
         $this->assertEquals(5, count($models));
     }
 
@@ -73,7 +73,7 @@ class ActiveDataProviderTest extends MongoDbTestCase
         $provider = new ActiveDataProvider([
             'query' => Customer::find()->orderBy('id ASC'),
         ]);
-        $models = $provider->get();
+        $models = $provider->getModels();
         $this->assertEquals(10, count($models));
         $this->assertTrue($models[0] instanceof Customer);
         $keys = $provider->getKeys();
@@ -85,7 +85,7 @@ class ActiveDataProviderTest extends MongoDbTestCase
                 'limit' => 5,
             ]
         ]);
-        $models = $provider->get();
+        $models = $provider->getModels();
         $this->assertEquals(5, count($models));
     }
 }
