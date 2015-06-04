@@ -1074,6 +1074,7 @@ class Collection implements ObjectInterface
     public function buildCondition($condition)
     {
         static $builders = [
+            'NOT' => 'buildNotCondition',
             'AND' => 'buildAndCondition',
             'OR' => 'buildOrCondition',
             'BETWEEN' => 'buildBetweenCondition',
@@ -1136,6 +1137,31 @@ class Collection implements ObjectInterface
             }
         }
 
+        return $result;
+    }
+
+    /**
+     * Composes `NOT` condition.
+     * @param string $operator the operator to use for connecting the given operands
+     * @param array $operands the Mongo conditions to connect.
+     * @return array the generated Mongo condition.
+     * @throws MongoException if wrong number of operands have been given.
+     */
+    public function buildNotCondition($operator, array $operands)
+    {
+        if (!isset($operands[0], $operands[1])) {
+            throw new MongoException("Operator '$operator' requires two operands.");
+        }
+        list($name, $value) = $operands;
+        $result = [];
+        if (is_array($value)) {
+            $result[$name] = ['$not' => $this->buildCondition($value)];
+        } else {
+            if ($name == '_id') {
+                $value = $this->ensureMongoId($value);
+            }
+            $result[$name] = ['$ne' => $value];
+        }
         return $result;
     }
 
