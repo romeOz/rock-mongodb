@@ -105,7 +105,7 @@ class ActiveQuery extends Query implements ActiveQueryInterface
      */
     public function one(ConnectionInterface $connection = null)
     {
-        // before
+        // before event
         /** @var ActiveRecord $model */
         $model  = new $this->modelClass;
         if (!$model->beforeFind()) {
