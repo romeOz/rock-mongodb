@@ -49,8 +49,7 @@ class Query extends \rock\mongodb\Query
                 $result[] = $row;
             }
         } else {
-            if ($cursor->hasNext()) {
-                $file = $cursor->getNext();
+            if ($file = $cursor->getNext()) {
                 $result = $file->file;
                 $result['file'] = $file;
             } else {
