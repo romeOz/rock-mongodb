@@ -272,7 +272,7 @@ class Query implements QueryInterface
      * @param array $rows the raw query result from database
      * @return array the converted query result
      */
-    public function populate($rows)
+    public function populate(array $rows)
     {
         if ($this->indexBy === null) {
             return $rows;

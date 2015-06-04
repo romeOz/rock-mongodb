@@ -18,6 +18,20 @@ use rock\mongodb\Connection;
 class Query extends \rock\mongodb\Query
 {
     /**
+     * @inheritdoc
+     */
+    public function one(ConnectionInterface $connection = null)
+    {
+        $row = parent::one($connection);
+        if ($row !== false) {
+            $models = $this->populate([$row]);
+            return reset($models) ?: null;
+        } else {
+                return null;
+        }
+    }
+
+    /**
      * Returns the Mongo collection for this query.
      *
      * @param ConnectionInterface $connection Mongo connection.
@@ -34,29 +48,20 @@ class Query extends \rock\mongodb\Query
     }
 
     /**
-     * @param \MongoGridFSCursor $cursor Mongo cursor instance to fetch data from.
-     * @param boolean $all whether to fetch all rows or only first one.
-     * @return array|boolean result.
-     * @see Query::fetchRows()
+     * Converts the raw query results into the format as specified by this query.
+     * This method is internally used to convert the data fetched from database
+     * into the format as required by this query.
+     * @param array $rows the raw query result from database
+     * @return array the converted query result
      */
-    protected function fetchRowsInternal($cursor, $all)
+    public function populate(array $rows)
     {
         $result = [];
-        if ($all) {
-            foreach ($cursor as $file) {
-                $row = $file->file;
-                $row['file'] = $file;
-                $result[] = $row;
-            }
-        } else {
-            if ($file = $cursor->getNext()) {
-                $result = $file->file;
-                $result['file'] = $file;
-            } else {
-                $result = null;
-            }
+        foreach ($rows as $file) {
+            $row = $file->file;
+            $row['file'] = $file;
+            $result[] = $row;
         }
-
-        return $result;
+        return parent::populate($result);
     }
 }

@@ -213,7 +213,7 @@ class ActiveQuery extends Query implements ActiveQueryInterface
      * @param array $rows the raw query result from MongoDB
      * @return array the converted query result
      */
-    public function populate($rows)
+    public function populate(array $rows)
     {
         if (empty($rows)) {
             return [];

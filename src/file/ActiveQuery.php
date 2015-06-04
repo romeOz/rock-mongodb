@@ -95,41 +95,6 @@ class ActiveQuery extends Query implements ActiveQueryInterface
     }
 
     /**
-     * Executes query and returns all results as an array.
-     *
-     * @param ConnectionInterface|\rock\mongodb\Connection $connection the Mongo connection used to execute the query.
-     * If null, the Mongo connection returned by {@see \rock\db\ActiveQueryTrait::$modelClass} will be used.
-     * @return array the query results. If the query results in nothing, an empty array will be returned.
-     */
-    public function all(ConnectionInterface $connection = null)
-    {
-        // before
-        /** @var ActiveRecord $activeRecord */
-        $activeRecord = new $this->modelClass;
-        if (!$activeRecord->beforeFind()) {
-            return [];
-        }
-
-        $cursor = $this->buildCursor($connection);
-        $rows = $this->fetchRows($cursor);
-        if (!empty($rows)) {
-            $models = $this->createModels($rows);
-            if (!empty($this->with)) {
-                $this->findWith($this->with, $models);
-            }
-            if (!$this->asArray) {
-                foreach ($models as $model) {
-                    $model->afterFind();
-                }
-            }
-
-            return $models;
-        } else {
-            return [];
-        }
-    }
-
-    /**
      * Executes query and returns a single row of result.
      *
      * @param ConnectionInterface|\rock\mongodb\Connection $connection the Mongo connection used to execute the query.
@@ -147,31 +112,26 @@ class ActiveQuery extends Query implements ActiveQueryInterface
             return null;
         }
 
-        $row = parent::one($connection);
-        if ($row !== null) {
-            if ($this->asArray) {
-                $model = $row;
-            } else {
-                /** @var ActiveRecord $class */
-                $class = $this->modelClass;
-                $model = $class::instantiate($row);
-                /** @var ActiveRecord $modelClass */
-                $modelClass = get_class($model);
-                $modelClass::populateRecord($model, $row);
-            }
-            if (!empty($this->with)) {
-                $models = [$model];
-                $this->findWith($this->with, $models);
-                $model = $models[0];
-            }
-            if (!$this->asArray) {
-                $model->afterFind();
-            }
+        return parent::one($connection);
+    }
 
-            return $model;
-        } else {
-            return null;
+    /**
+     * Executes query and returns all results as an array.
+     *
+     * @param ConnectionInterface|\rock\mongodb\Connection $connection the Mongo connection used to execute the query.
+     * If null, the Mongo connection returned by {@see \rock\db\ActiveQueryTrait::$modelClass} will be used.
+     * @return array|ActiveRecord[] the query results. If the query results in nothing, an empty array will be returned.
+     */
+    public function all(ConnectionInterface $connection = null)
+    {
+        // before event
+        /** @var ActiveRecord $activeRecord */
+        $activeRecord = new $this->modelClass;
+        if (!$activeRecord->beforeFind()) {
+            return [];
         }
+
+        return parent::all($connection);
     }
 
     /**
@@ -193,5 +153,34 @@ class ActiveQuery extends Query implements ActiveQueryInterface
         }
         $this->calculateCacheParams($this->connection);
         return $this->connection->getFileCollection($this->from);
+    }
+
+    /**
+     * Converts the raw query results into the format as specified by this query.
+     * This method is internally used to convert the data fetched from MongoDB
+     * into the format as required by this query.
+     * @param array $rows the raw query result from MongoDB
+     * @return array the converted query result
+     */
+    public function populate(array $rows)
+    {
+        if (empty($rows)) {
+            return [];
+        }
+
+        $indexBy = $this->indexBy;
+        $this->indexBy = null;
+        $rows = parent::populate($rows);
+        $this->indexBy = $indexBy;
+        $models = $this->createModels($rows);
+        if (!empty($this->with)) {
+            $this->findWith($this->with, $models);
+        }
+        if (!$this->asArray) {
+            foreach ($models as $model) {
+                $model->afterFind();
+            }
+        }
+        return $models;
     }
 }
