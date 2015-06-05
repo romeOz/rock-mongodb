@@ -88,13 +88,13 @@ class ModelIdTestRuleModel extends ActiveRecord
     public function rules()
     {
         return [
-            [Model::RULE_VALIDATE, 'id', 'mongoId']
+            ['id', 'mongoId']
         ];
     }
 
-    public function insert($runValidation = true, array $attributes = null)
+    public function insert($runValidation = true, array $attributeNames = null)
     {
-        if ($runValidation && !$this->validate($attributes)) {
+        if ($runValidation && !$this->validate($attributeNames)) {
             return false;
         }
         return true;
@@ -112,13 +112,13 @@ class ModelIdTestSanitizeModel extends ActiveRecord
     public function rules()
     {
         return [
-            [Model::RULE_SANITIZE, 'id', 'mongoId']
+            ['id', '!mongoId' => ['object']]
         ];
     }
 
-    public function insert($runValidation = true, array $attributes = null)
+    public function insert($runValidation = true, array $attributeNames = null)
     {
-        if ($runValidation && !$this->validate($attributes)) {
+        if ($runValidation && !$this->validate($attributeNames)) {
             return false;
         }
         return true;

@@ -14,10 +14,10 @@ class MongoIdLocale extends \rock\mongodb\validate\locale\en\MongoIdLocale
     {
         return [
             self::MODE_DEFAULT => [
-                self::STANDARD => '{{attribute}} должен быть в формате MongoId',
+                self::STANDARD => '{{name}} должен быть в формате MongoId',
             ],
             self::MODE_NEGATIVE => [
-                self::STANDARD => '{{attribute}} не должен быть в формате MongoId',
+                self::STANDARD => '{{name}} не должен быть в формате MongoId',
             ]
         ];
     }

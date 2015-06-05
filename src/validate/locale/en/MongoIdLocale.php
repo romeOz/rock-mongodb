@@ -17,16 +17,16 @@ class MongoIdLocale extends Locale
     {
         return [
             self::MODE_DEFAULT => [
-                self::STANDARD => '{{attribute}} must be an MongoId',
+                self::STANDARD => '{{name}} must be an MongoId',
             ],
             self::MODE_NEGATIVE => [
-                self::STANDARD => '{{attribute}} must not be an MongoId',
+                self::STANDARD => '{{name}} must not be an MongoId',
             ]
         ];
     }
 
     public function defaultPlaceholders($attribute = null)
     {
-        return ['attribute' =>  $attribute];
+        return ['name' =>  $attribute];
     }
 }

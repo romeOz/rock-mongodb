@@ -38,6 +38,12 @@ class MongoIdRule extends ModelRule
     public $forceFormat;
     public $recursive = false;
 
+    public function __construct($forceFormat = null, $config = [])
+    {
+        parent::__construct($config);
+        $this->forceFormat = $forceFormat;
+    }
+
     /**
      * @inheritdoc
      */

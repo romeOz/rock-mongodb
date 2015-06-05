@@ -207,17 +207,17 @@ abstract class ActiveRecord extends BaseActiveRecord
      *
      * @param boolean $runValidation whether to perform validation before saving the record.
      * If the validation fails, the record will not be inserted into the collection.
-     * @param array $attributes list of attributes that need to be saved. Defaults to null,
+     * @param array $attributeNames list of attribute names that need to be saved. Defaults to null,
      * meaning all attributes that are loaded will be saved.
      * @return boolean whether the attributes are valid and the record is inserted successfully.
      * @throws \Exception in case insert failed.
      */
-    public function insert($runValidation = true, array $attributes = null)
+    public function insert($runValidation = true, array $attributeNames = null)
     {
-        if ($runValidation && !$this->validate($attributes)) {
+        if ($runValidation && !$this->validate($attributeNames)) {
             return false;
         }
-        $result = $this->insertInternal($attributes);
+        $result = $this->insertInternal($attributeNames);
 
         return $result;
     }

@@ -26,6 +26,11 @@ use rock\components\validate\ModelRule;
  */
 class MongoIdRule extends ModelRule
 {
+    public function __construct($forceFormat = null, $config = [])
+    {
+        parent::__construct($config);
+    }
+
     /**
      * @inheritdoc
      */
