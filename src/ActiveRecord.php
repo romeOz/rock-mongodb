@@ -283,6 +283,10 @@ abstract class ActiveRecord extends BaseActiveRecord
         if ($lock !== null && !$rows) {
             throw new MongoException('The object being updated is outdated.');
         }
+        
+        if (isset($values[$lock])) {
+            $this->$lock = $values[$lock];
+        }
 
         $changedAttributes = [];
         foreach ($values as $name => $value) {
