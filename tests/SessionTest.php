@@ -48,12 +48,12 @@ class SessionTest extends MongoDbTestCase
     // Tests:
 
     /**
-     * dataProvider providerGC
-     * param bool $useGC
+     * @dataProvider providerGC
+     * @param bool $useGC
      */
-    public function testWriteSession()
+    public function testWriteSession($useGC)
     {
-        $session = $this->createSession(true);
+        $session = $this->createSession($useGC);
 
         $id = uniqid();
         $data = [
@@ -98,7 +98,7 @@ class SessionTest extends MongoDbTestCase
      */
     public function testDestroySession()
     {
-        $session = $this->createSession(true);
+        $session = $this->createSession(false);
 
         $id = uniqid();
         $data = [
@@ -119,7 +119,7 @@ class SessionTest extends MongoDbTestCase
      */
     public function testReadSession()
     {
-        $session = $this->createSession(true);
+        $session = $this->createSession(false);
 
         $id = uniqid();
         $data = [
