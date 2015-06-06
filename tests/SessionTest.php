@@ -39,7 +39,7 @@ class SessionTest extends MongoDbTestCase
         }
         return Instance::ensure([
             'class' => Session::className(),
-            'connection' => $this->getConnection(),
+            'connection' => $connection,
             'sessionCollection' => static::$sessionCollection,
             'useGC' => $useGC
         ]);
@@ -86,11 +86,13 @@ class SessionTest extends MongoDbTestCase
     }
 
     /**
+     * @dataProvider providerGC
+     * @param bool $useGC
      * @depends testWriteSession
      */
-    public function testDestroySession()
+    public function testDestroySession($useGC)
     {
-        $session = $this->createSession(false);
+        $session = $this->createSession($useGC);
 
         $id = uniqid();
         $data = [
