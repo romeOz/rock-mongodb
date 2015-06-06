@@ -1,39 +1,16 @@
 <?php
 namespace rock\mongodb;
 
-use rock\components\sanitize\ModelSanitize;
-use rock\components\validate\ModelValidate;
 use rock\db\common\BaseActiveRecord;
 use rock\helpers\Inflector;
 use rock\helpers\Instance;
 use rock\helpers\ObjectHelper;
-use rock\mongodb\validate\rules\MongoIdRule;
 
 /**
  * ActiveRecord is the base class for classes representing Mongo documents in terms of objects.
  */
 abstract class ActiveRecord extends BaseActiveRecord
 {
-    public function init()
-    {
-        parent::init();
-        $rules = [
-            'mongoId' => [
-                'class' => MongoIdRule::className(),
-                'locales' => [
-                    'en' => \rock\mongodb\validate\locale\en\MongoIdLocale::className(),
-                    'ru' => \rock\mongodb\validate\locale\ru\MongoIdLocale::className(),
-                ]
-            ],
-        ];
-        $this->validate = new ModelValidate(['rules' => $rules]);
-
-        $rules = [
-            'mongoId' => \rock\mongodb\sanitize\rules\MongoIdRule::className()
-        ];
-        $this->sanitize = new ModelSanitize(['rules' => $rules]);
-    }
-
     /**
      * Returns the Mongo connection used by this AR class.
      * By default, the "mongodb" application component is used as the Mongo connection.
