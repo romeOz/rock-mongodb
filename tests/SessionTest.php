@@ -47,9 +47,13 @@ class SessionTest extends MongoDbTestCase
 
     // Tests:
 
+    /**
+     * dataProvider providerGC
+     * param bool $useGC
+     */
     public function testWriteSession()
     {
-        $session = $this->createSession(false);
+        $session = $this->createSession(true);
 
         $id = uniqid();
         $data = [
@@ -81,12 +85,20 @@ class SessionTest extends MongoDbTestCase
         $this->assertTrue($newRow['expire'] >= $row['expire'], 'Wrong session expire after update!');
     }
 
+    public function providerGC()
+    {
+        return [
+            [true],
+            [false],
+        ];
+    }
+
     /**
      * @depends testWriteSession
      */
     public function testDestroySession()
     {
-        $session = $this->createSession(false);
+        $session = $this->createSession(true);
 
         $id = uniqid();
         $data = [
@@ -107,7 +119,7 @@ class SessionTest extends MongoDbTestCase
      */
     public function testReadSession()
     {
-        $session = $this->createSession(false);
+        $session = $this->createSession(true);
 
         $id = uniqid();
         $data = [
