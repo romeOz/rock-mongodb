@@ -39,6 +39,7 @@ class Session extends \rock\session\Session
      * This collection is better to be pre-created with fields 'id' and 'expire' indexed.
      */
     public $sessionCollection = 'session';
+    public $useGC = true;
 
 
     /**
@@ -50,12 +51,6 @@ class Session extends \rock\session\Session
     {
         parent::init();
         $this->connection = Instance::ensure($this->connection, Connection::className());
-
-        if (!$this->getIsActive()) {
-            $this->connection
-                ->getCollection($this->sessionCollection)
-                ->createIndex('expire', ['expireAfterSeconds' => 0]);
-        }
     }
 
     /**
@@ -169,6 +164,21 @@ class Session extends \rock\session\Session
             ['justOne' => true]
         );
 
+        return true;
+    }
+
+    /**
+     * Session GC (garbage collection) handler.
+     * Do not call this method directly.
+     * @param integer $maxLifetime the number of seconds after which data will be seen as 'garbage' and cleaned up.
+     * @return boolean whether session is GCed successfully
+     */
+    public function gcSession($maxLifetime)
+    {
+        if ($this->useGC) {
+            $this->connection->getCollection($this->sessionCollection)
+                ->remove(['expire' => ['$lt' => new \MongoDate(time())]]);
+        }
         return true;
     }
 }

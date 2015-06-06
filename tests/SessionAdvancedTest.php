@@ -26,9 +26,16 @@ class SessionAdvancedTest extends MongoDbTestCase
         }
 
         parent::setUp();
+
+        $connection = $this->getConnection();
+        $connection
+            ->getCollection(static::$sessionCollection)
+            ->createIndex('expire', ['expireAfterSeconds' => 0]);
+
         $config = [
-            'connection' => $this->getConnection(),
+            'connection' => $connection,
             'sessionCollection' => static::$sessionCollection,
+            'useGC' => false
         ];
         $this->handlerSession = new MongoSessionMock($config);
         $this->handlerSession->init();

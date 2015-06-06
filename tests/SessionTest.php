@@ -23,14 +23,25 @@ class SessionTest extends MongoDbTestCase
 
     /**
      * Creates test session instance.
+     * @param bool $useGC
      * @return Session session instance.
+     * @throws \rock\helpers\InstanceException
+     * @throws \rock\mongodb\MongoException
      */
-    protected function createSession()
+    protected function createSession($useGC = true)
     {
+        $connection = $this->getConnection();
+
+        if (!$useGC) {
+            $connection
+                ->getCollection(static::$sessionCollection)
+                ->createIndex('expire', ['expireAfterSeconds' => 0]);
+        }
         return Instance::ensure([
             'class' => Session::className(),
             'connection' => $this->getConnection(),
             'sessionCollection' => static::$sessionCollection,
+            'useGC' => $useGC
         ]);
     }
 
@@ -38,7 +49,7 @@ class SessionTest extends MongoDbTestCase
 
     public function testWriteSession()
     {
-        $session = $this->createSession();
+        $session = $this->createSession(false);
 
         $id = uniqid();
         $data = [
@@ -75,7 +86,7 @@ class SessionTest extends MongoDbTestCase
      */
     public function testDestroySession()
     {
-        $session = $this->createSession();
+        $session = $this->createSession(false);
 
         $id = uniqid();
         $data = [
@@ -96,7 +107,7 @@ class SessionTest extends MongoDbTestCase
      */
     public function testReadSession()
     {
-        $session = $this->createSession();
+        $session = $this->createSession(false);
 
         $id = uniqid();
         $data = [
