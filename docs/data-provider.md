@@ -13,12 +13,12 @@ $provider = new \rock\db\common\ActiveDataProvider([
         'limit' => 20,
         'sort' => SORT_DESC,
         'pageLimit' => 5,
-        'pageCurrent' => (int)$_GET['page']
+        'page' => (int)$_GET['page']
     ],
 ]);
 
-$provider->get(); // returns list items in the current page
-$provider->getPagination(); // returns data pagination
+$provider->getModels(); // returns list items in the current page
+$provider->getPagination(); // returns pagination provider
 ```
 
 And the following example shows how to use ActiveDataProvider without ActiveRecord:
@@ -31,32 +31,10 @@ $provider = new ActiveDataProvider([
          'limit' => 20,
          'sort' => SORT_DESC,
          'pageLimit' => 5,
-         'pageCurrent' => (int)$_GET['page'],
+         'page' => (int)$_GET['page'],
      ],
 ]);
 
-$provider->get(); // returns list items in the current page
-$provider->getPagination(); // returns data pagination
-```
-
-Array data provider
--------------------
-
-ArrayDataProvider implements a data provider based on a data array.
-
-
-```php
-$query = (new \rock\mongodb\Query())->from('articles');
-$provider = new ActiveDataProvider([
-     'array' => $query->all(),
-     'pagination' => [
-         'limit' => 20,
-         'sort' => SORT_DESC,
-         'pageLimit' => 5,
-         'pageCurrent' => (int)$_GET['page'],
-     ],
-]);
-
-$provider->get(); // returns list items in the current page
-$provider->getPagination(); // returns data pagination
+$provider->getModels(); // returns list items in the current page
+$provider->getPagination(); // returns pagination provider
 ```
