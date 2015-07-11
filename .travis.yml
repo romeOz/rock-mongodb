@@ -24,7 +24,6 @@ matrix:
     - php: hhvm-nightly
 
 services:
-  - rabbitmq
   - mongodb
 
 install:
