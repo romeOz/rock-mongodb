@@ -2,11 +2,9 @@
 ## Project
 ############
 
-/build/
-/vendor/
+vendor/
 composer.lock
 *~
-
 
 ############
 ## Windows
@@ -25,7 +23,6 @@ Desktop.ini
 .vagrant/
 provisioning/
 Vagrantfile
-
 
 ############
 ## PHPStorm
