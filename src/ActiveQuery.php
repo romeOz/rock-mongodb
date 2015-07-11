@@ -130,7 +130,7 @@ class ActiveQuery extends Query implements ActiveQueryInterface
     {
         // before
         /** @var ActiveRecord $model */
-        $model  = new $this->modelClass;
+        $model = new $this->modelClass;
         if (!$model->beforeFind()) {
             return null;
         }

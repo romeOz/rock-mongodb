@@ -87,7 +87,7 @@ class Collection extends \rock\mongodb\Collection
         } catch (\Exception $e) {
             $message = $e->getMessage() . "\nThe query being executed was: $token";
             Trace::endProfile('mongodb.query', $token);
-            $token['valid']     = false;
+            $token['valid'] = false;
             $token['exception'] = defined('ROCK_DEBUG') && ROCK_DEBUG === true ? $e : $message;
             Trace::trace('mongodb.query', $token);
 
@@ -121,7 +121,7 @@ class Collection extends \rock\mongodb\Collection
         } catch (\Exception $e) {
             $message = $e->getMessage() . "\nThe query being executed was: $token";
             Trace::endProfile('mongodb.query', $token);
-            $token['valid']     = false;
+            $token['valid'] = false;
             $token['exception'] = defined('ROCK_DEBUG') && ROCK_DEBUG === true ? $e : $message;
             Trace::trace('mongodb.query', $token);
 
@@ -154,7 +154,7 @@ class Collection extends \rock\mongodb\Collection
         } catch (\Exception $e) {
             $message = $e->getMessage() . "\nThe query being executed was: $token";
             Trace::endProfile('mongodb.query', $token);
-            $token['valid']     = false;
+            $token['valid'] = false;
             $token['exception'] = defined('ROCK_DEBUG') && ROCK_DEBUG === true ? $e : $message;
             Trace::trace('mongodb.query', $token);
 
@@ -183,7 +183,7 @@ class Collection extends \rock\mongodb\Collection
         } catch (\Exception $e) {
             $message = $e->getMessage() . "\nThe query being executed was: $token";
             Trace::endProfile('mongodb.query', $token);
-            $token['valid']     = false;
+            $token['valid'] = false;
             $token['exception'] = defined('ROCK_DEBUG') && ROCK_DEBUG === true ? $e : $message;
             Trace::trace('mongodb.query', $token);
 
@@ -213,7 +213,7 @@ class Collection extends \rock\mongodb\Collection
         } catch (\Exception $e) {
             $message = $e->getMessage() . "\nThe query being executed was: $token";
             Trace::endProfile('mongodb.query', $token);
-            $token['valid']     = false;
+            $token['valid'] = false;
             $token['exception'] = defined('ROCK_DEBUG') && ROCK_DEBUG === true ? $e : $message;
             Trace::trace('mongodb.query', $token);
             throw new MongoException($message, [], $e);

@@ -38,7 +38,7 @@ class Cache implements CacheInterface, EventsInterface
      * After the Cache object is created, if you want to change this property, you should only assign it
      * with a MongoDB connection object.
      */
-    public $storage  = 'mongodb';
+    public $storage = 'mongodb';
     /**
      * @var string|array the name of the MongoDB collection that stores the cache data.
      * Please refer to {@see \rock\mongodb\Connection::getCollection()} on how to specify this parameter.
@@ -116,7 +116,7 @@ class Cache implements CacheInterface, EventsInterface
         return $this->insertInternal(
             [
                 'id' => $this->prepareKey($key),
-                'expire' =>  $expire > 0 ? new \MongoDate($expire + time()) : null,
+                'expire' => $expire > 0 ? new \MongoDate($expire + time()) : null,
                 'value' => $value,
                 'tags' => $this->prepareTags($tags)
             ]
@@ -145,16 +145,16 @@ class Cache implements CacheInterface, EventsInterface
         $row = $query->select(['value'])
             ->from($this->cacheCollection)
             ->where([
-                        'id' => $key,
-                        '$or' => [
-                            [
-                                'expire' => null
-                            ],
-                            [
-                                'expire' => ['$gt' => new \MongoDate()]
-                            ],
-                        ],
-                    ])
+                'id' => $key,
+                '$or' => [
+                    [
+                        'expire' => null
+                    ],
+                    [
+                        'expire' => ['$gt' => new \MongoDate()]
+                    ],
+                ],
+            ])
             ->one($this->storage);
 
         if (empty($row)) {
@@ -173,16 +173,16 @@ class Cache implements CacheInterface, EventsInterface
         return $query
             ->from($this->cacheCollection)
             ->where([
-                        'id' => $this->prepareKey($key),
-                        '$or' => [
-                            [
-                                'expire' => null
-                            ],
-                            [
-                                'expire' => ['$gt' => new \MongoDate()]
-                            ],
-                        ],
-                    ])
+                'id' => $this->prepareKey($key),
+                '$or' => [
+                    [
+                        'expire' => null
+                    ],
+                    [
+                        'expire' => ['$gt' => new \MongoDate()]
+                    ],
+                ],
+            ])
             ->exists($this->storage);
     }
 
@@ -204,12 +204,13 @@ class Cache implements CacheInterface, EventsInterface
         ];
         $update = [
             '$inc' => ['value' => $offset],
-            '$set' => ['expire' =>  $expire > 0 ? new \MongoDate($expire + time()) : null]
+            '$set' => ['expire' => $expire > 0 ? new \MongoDate($expire + time()) : null]
         ];
         $fields = ['value' => 1];
         $options = $create === true ? ['new' => true, 'upsert' => true] : ['new' => true];
-        if (!$row  = $this->storage->getCollection($this->cacheCollection)
-            ->findAndModify($condition, $update, $fields, $options)) {
+        if (!$row = $this->storage->getCollection($this->cacheCollection)
+            ->findAndModify($condition, $update, $fields, $options)
+        ) {
             return false;
         }
 
@@ -234,12 +235,13 @@ class Cache implements CacheInterface, EventsInterface
         ];
         $update = [
             '$inc' => ['value' => -1 * $offset],
-            '$set' => ['expire' =>  $expire > 0 ? new \MongoDate($expire + time()) : null]
+            '$set' => ['expire' => $expire > 0 ? new \MongoDate($expire + time()) : null]
         ];
         $fields = ['value' => 1];
         $options = $create === true ? ['new' => true, 'upsert' => true] : ['new' => true];
-        if (!$row  = $this->storage->getCollection($this->cacheCollection)
-            ->findAndModify($condition, $update, $fields, $options)) {
+        if (!$row = $this->storage->getCollection($this->cacheCollection)
+            ->findAndModify($condition, $update, $fields, $options)
+        ) {
             return false;
         }
 
@@ -273,16 +275,16 @@ class Cache implements CacheInterface, EventsInterface
         $rows = $query->select(['id', 'value'])
             ->from($this->cacheCollection)
             ->where([
-                        'id' => ['$in' => $keys],
-                        '$or' => [
-                            [
-                                'expire' => null
-                            ],
-                            [
-                                'expire' => ['$gt' => new \MongoDate()]
-                            ],
-                        ],
-                    ])
+                'id' => ['$in' => $keys],
+                '$or' => [
+                    [
+                        'expire' => null
+                    ],
+                    [
+                        'expire' => ['$gt' => new \MongoDate()]
+                    ],
+                ],
+            ])
             ->indexBy('id')
             ->all($this->storage);
 

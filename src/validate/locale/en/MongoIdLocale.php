@@ -27,6 +27,6 @@ class MongoIdLocale extends Locale
 
     public function defaultPlaceholders($attribute = null)
     {
-        return ['name' =>  $attribute];
+        return ['name' => $attribute];
     }
 }

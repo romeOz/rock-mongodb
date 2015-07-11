@@ -340,6 +340,6 @@ abstract class ActiveRecord extends BaseActiveRecord
             return false;
         }
 
-        return $this->collectionName() === $record->collectionName() && (string) $this->getPrimaryKey() === (string) $record->getPrimaryKey();
+        return $this->collectionName() === $record->collectionName() && (string)$this->getPrimaryKey() === (string)$record->getPrimaryKey();
     }
 }

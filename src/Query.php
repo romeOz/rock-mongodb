@@ -188,7 +188,7 @@ class Query implements QueryInterface
         }
 
         try {
-            $result = $this->fetchRowsInternal($cursor, $all, $indexBy);
+            $result = $this->fetchRowsInternal($cursor, $all);
             $this->setCache($result, $cache, $cacheKey);
             Trace::endProfile('mongodb.query', $token);
             Trace::trace('mongodb.query', $token);
@@ -551,7 +551,7 @@ class Query implements QueryInterface
     {
         /** @var $cache CacheInterface */
         if ($this->connection->enableQueryCache) {
-            $cache = Instance::ensure($this->connection->queryCache, null, false);
+            $cache = Instance::ensure($this->connection->queryCache, null, [], false);
         }
 
         if ($cache instanceof CacheInterface) {

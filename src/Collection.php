@@ -203,7 +203,7 @@ class Collection implements ObjectInterface
         } catch (\Exception $e) {
             $message = $e->getMessage() . "\nThe query being executed was: $rawQuery";
             Trace::endProfile('mongodb.query', $token);
-            $token['valid']     = false;
+            $token['valid'] = false;
             $token['exception'] = defined('ROCK_DEBUG') && ROCK_DEBUG === true ? $e : $message;
             Trace::trace('mongodb.query', $token);
 
@@ -261,7 +261,7 @@ class Collection implements ObjectInterface
         } catch (\Exception $e) {
             $message = $e->getMessage() . "\nThe query being executed was: $rawQuery";
             Trace::endProfile('mongodb.query', $token);
-            $token['valid']     = false;
+            $token['valid'] = false;
             $token['exception'] = defined('ROCK_DEBUG') && ROCK_DEBUG === true ? $e : $message;
             Trace::trace('mongodb.query', $token);
 
@@ -314,7 +314,7 @@ class Collection implements ObjectInterface
         } catch (\Exception $e) {
             $message = $e->getMessage() . "\nThe query being executed was: $rawQuery";
             Trace::endProfile('mongodb.query', $token);
-            $token['valid']     = false;
+            $token['valid'] = false;
             $token['exception'] = defined('ROCK_DEBUG') && ROCK_DEBUG === true ? $e : $message;
             Trace::trace('mongodb.query', $token);
 
@@ -367,7 +367,7 @@ class Collection implements ObjectInterface
         } catch (\Exception $e) {
             $message = $e->getMessage() . "\nThe query being executed was: $rawQuery";
             Trace::endProfile('mongodb.query', $token);
-            $token['valid']     = false;
+            $token['valid'] = false;
             $token['exception'] = defined('ROCK_DEBUG') && ROCK_DEBUG === true ? $e : $message;
             Trace::trace('mongodb.query', $token);
 
@@ -431,7 +431,7 @@ class Collection implements ObjectInterface
         } catch (\Exception $e) {
             $message = $e->getMessage() . "\nThe query being executed was: $rawQuery";
             Trace::endProfile('mongodb.query', $token);
-            $token['valid']     = false;
+            $token['valid'] = false;
             $token['exception'] = defined('ROCK_DEBUG') && ROCK_DEBUG === true ? $e : $message;
             Trace::trace('mongodb.query', $token);
 
@@ -467,7 +467,7 @@ class Collection implements ObjectInterface
         } catch (\Exception $e) {
             $message = $e->getMessage() . "\nThe query being executed was: $rawQuery";
             Trace::endProfile('mongodb.query', $token);
-            $token['valid']     = false;
+            $token['valid'] = false;
             $token['exception'] = defined('ROCK_DEBUG') && ROCK_DEBUG === true ? $e : $message;
             Trace::trace('mongodb.query', $token);
 
@@ -503,7 +503,7 @@ class Collection implements ObjectInterface
         } catch (\Exception $e) {
             $message = $e->getMessage() . "\nThe query being executed was: $rawQuery";
             Trace::endProfile('mongodb.query', $token);
-            $token['valid']     = false;
+            $token['valid'] = false;
             $token['exception'] = defined('ROCK_DEBUG') && ROCK_DEBUG === true ? $e : $message;
             Trace::trace('mongodb.query', $token);
             throw new MongoException($message, [], $e);
@@ -553,7 +553,7 @@ class Collection implements ObjectInterface
         } catch (\Exception $e) {
             $message = $e->getMessage() . "\nThe query being executed was: $rawQuery";
             Trace::endProfile('mongodb.query', $token);
-            $token['valid']     = false;
+            $token['valid'] = false;
             $token['exception'] = defined('ROCK_DEBUG') && ROCK_DEBUG === true ? $e : $message;
             Trace::trace('mongodb.query', $token);
             throw new MongoException($message, [], $e);
@@ -562,12 +562,12 @@ class Collection implements ObjectInterface
 
     protected function clearCache($table, $rawSql)
     {
-        if (!$this->connection->autoClearCache || (!$tables = $this->connection->queryCacheTags ? : [$table])) {
+        if (!$this->connection->autoClearCache || (!$tables = $this->connection->queryCacheTags ?: [$table])) {
             return;
         }
 
         /** @var $cache CacheInterface */
-        $cache = Instance::ensure($this->connection->queryCache, null, false);
+        $cache = Instance::ensure($this->connection->queryCache, null, [], false);
         if (!$cache instanceof CacheInterface) {
             return;
         }
@@ -577,7 +577,7 @@ class Collection implements ObjectInterface
         $token = [
             'dsn' => $this->connection->dsn,
             'sql' => $rawSql,
-            'message' => 'Clear cache by tags: '. implode(',', $tables),
+            'message' => 'Clear cache by tags: ' . implode(',', $tables),
         ];
         Trace::trace('cache.mongodb', $token);
     }
@@ -611,7 +611,7 @@ class Collection implements ObjectInterface
         } catch (\Exception $e) {
             $message = $e->getMessage() . "\nThe query being executed was: $rawQuery";
             Trace::endProfile('mongodb.query', $token);
-            $token['valid']     = false;
+            $token['valid'] = false;
             $token['exception'] = defined('ROCK_DEBUG') && ROCK_DEBUG === true ? $e : $message;
             Trace::trace('mongodb.query', $token);
             throw new MongoException($message, [], $e);
@@ -653,7 +653,7 @@ class Collection implements ObjectInterface
         } catch (\Exception $e) {
             $message = $e->getMessage() . "\nThe query being executed was: $rawQuery";
             Trace::endProfile('mongodb.query', $token);
-            $token['valid']     = false;
+            $token['valid'] = false;
             $token['exception'] = defined('ROCK_DEBUG') && ROCK_DEBUG === true ? $e : $message;
             Trace::trace('mongodb.query', $token);
             throw new MongoException($message, [], $e);
@@ -693,7 +693,7 @@ class Collection implements ObjectInterface
         } catch (\Exception $e) {
             $message = $e->getMessage() . "\nThe query being executed was: $rawQuery";
             Trace::endProfile('mongodb.query', $token);
-            $token['valid']     = false;
+            $token['valid'] = false;
             $token['exception'] = defined('ROCK_DEBUG') && ROCK_DEBUG === true ? $e : $message;
             Trace::trace('mongodb.query', $token);
             throw new MongoException($message, [], $e);
@@ -737,7 +737,7 @@ class Collection implements ObjectInterface
         } catch (\Exception $e) {
             $message = $e->getMessage() . "\nThe query being executed was: $rawQuery";
             Trace::endProfile('mongodb.query', $token);
-            $token['valid']     = false;
+            $token['valid'] = false;
             $token['exception'] = defined('ROCK_DEBUG') && ROCK_DEBUG === true ? $e : $message;
             Trace::trace('mongodb.query', $token);
             throw new MongoException($message, [], $e);
@@ -764,14 +764,14 @@ class Collection implements ObjectInterface
     public function group($keys, $initial, $reduce, array $options = [])
     {
         if (!($reduce instanceof \MongoCode)) {
-            $reduce = new \MongoCode((string) $reduce);
+            $reduce = new \MongoCode((string)$reduce);
         }
         if (array_key_exists('condition', $options)) {
             $options['condition'] = $this->buildCondition($options['condition']);
         }
         if (array_key_exists('finalize', $options)) {
             if (!($options['finalize'] instanceof \MongoCode)) {
-                $options['finalize'] = new \MongoCode((string) $options['finalize']);
+                $options['finalize'] = new \MongoCode((string)$options['finalize']);
             }
         }
         $rawQuery = $this->composeLogToken('group', [$keys, $initial, $reduce, $options]);
@@ -808,7 +808,7 @@ class Collection implements ObjectInterface
         } catch (\Exception $e) {
             $message = $e->getMessage() . "\nThe query being executed was: $rawQuery";
             Trace::endProfile('mongodb.query', $token);
-            $token['valid']     = false;
+            $token['valid'] = false;
             $token['exception'] = defined('ROCK_DEBUG') && ROCK_DEBUG === true ? $e : $message;
             Trace::trace('mongodb.query', $token);
             throw new MongoException($message, [], $e);
@@ -855,10 +855,10 @@ class Collection implements ObjectInterface
     public function mapReduce($map, $reduce, $out, array $condition = [], array $options = [])
     {
         if (!($map instanceof \MongoCode)) {
-            $map = new \MongoCode((string) $map);
+            $map = new \MongoCode((string)$map);
         }
         if (!($reduce instanceof \MongoCode)) {
-            $reduce = new \MongoCode((string) $reduce);
+            $reduce = new \MongoCode((string)$reduce);
         }
         $command = [
             'mapReduce' => $this->getName(),
@@ -871,7 +871,7 @@ class Collection implements ObjectInterface
         }
         if (array_key_exists('finalize', $options)) {
             if (!($options['finalize'] instanceof \MongoCode)) {
-                $options['finalize'] = new \MongoCode((string) $options['finalize']);
+                $options['finalize'] = new \MongoCode((string)$options['finalize']);
             }
         }
         if (!empty($options)) {
@@ -905,7 +905,7 @@ class Collection implements ObjectInterface
         } catch (\Exception $e) {
             $message = $e->getMessage() . "\nThe query being executed was: $rawQuery";
             Trace::endProfile('mongodb.query', $token);
-            $token['valid']     = false;
+            $token['valid'] = false;
             $token['exception'] = defined('ROCK_DEBUG') && ROCK_DEBUG === true ? $e : $message;
             Trace::trace('mongodb.query', $token);
             throw new MongoException($message, [], $e);
@@ -964,7 +964,7 @@ class Collection implements ObjectInterface
         } catch (\Exception $e) {
             $message = $e->getMessage() . "\nThe query being executed was: $rawQuery";
             Trace::endProfile('mongodb.query', $token);
-            $token['valid']     = false;
+            $token['valid'] = false;
             $token['exception'] = defined('ROCK_DEBUG') && ROCK_DEBUG === true ? $e : $message;
             Trace::trace('mongodb.query', $token);
             throw new MongoException($message, [], $e);
@@ -1050,7 +1050,7 @@ class Collection implements ObjectInterface
             if ($rawId instanceof \MongoId) {
                 return $rawId;
             } else {
-                $rawId = (string) $rawId;
+                $rawId = (string)$rawId;
             }
         }
         try {
@@ -1249,7 +1249,7 @@ class Collection implements ObjectInterface
 
         list($column, $values) = $operands;
 
-        $values = (array) $values;
+        $values = (array)$values;
 
         if (!is_array($column)) {
             $columns = [$column];
@@ -1324,7 +1324,7 @@ class Collection implements ObjectInterface
         $this->calculateCacheParams($this->connection);
         /** @var $cache CacheInterface */
         if ($this->connection->enableQueryCache) {
-            $cache = Instance::ensure($this->connection->queryCache, null, false);
+            $cache = Instance::ensure($this->connection->queryCache, null, [], false);
         }
 
         if ($cache instanceof CacheInterface) {
@@ -1346,9 +1346,9 @@ class Collection implements ObjectInterface
     {
         if (isset($cache, $cacheKey) && $result !== false && $cache instanceof CacheInterface) {
             $cache->set($cacheKey,
-                        $result,
-                        $this->connection->queryCacheExpire,
-                        $this->connection->queryCacheTags ? : [$this->getName()]
+                $result,
+                $this->connection->queryCacheExpire,
+                $this->connection->queryCacheTags ?: [$this->getName()]
             );
         }
     }

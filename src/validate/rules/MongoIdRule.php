@@ -1,6 +1,7 @@
 <?php
 
 namespace rock\mongodb\validate\rules;
+
 use rock\components\validate\ModelRule;
 
 

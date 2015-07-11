@@ -132,7 +132,7 @@ class Database implements ObjectInterface
         } catch (\Exception $e) {
             $message = $e->getMessage() . "\nThe query being executed was: $rawQuery";
             Trace::endProfile('mongodb.query', $token);
-            $token['valid']     = false;
+            $token['valid'] = false;
             $token['exception'] = defined('ROCK_DEBUG') && ROCK_DEBUG === true ? $e : $message;
             Trace::trace('mongodb.query', $token);
 
@@ -169,7 +169,7 @@ class Database implements ObjectInterface
         } catch (\Exception $e) {
             $message = $e->getMessage() . "\nThe query being executed was: $rawQuery";
             Trace::endProfile('mongodb.query', $token);
-            $token['valid']     = false;
+            $token['valid'] = false;
             $token['exception'] = defined('ROCK_DEBUG') && ROCK_DEBUG === true ? $e : $message;
             Trace::trace('mongodb.query', $token);
 
@@ -193,7 +193,7 @@ class Database implements ObjectInterface
             }
             if (isset($errorMessage)) {
                 if (array_key_exists('ok', $result)) {
-                    $errorCode = (int) $result['ok'];
+                    $errorCode = (int)$result['ok'];
                 } else {
                     $errorCode = 0;
                 }

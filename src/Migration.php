@@ -82,7 +82,7 @@ abstract class Migration implements MigrationInterface, ComponentsInterface
      */
     public function createIndex($collection, $columns, array $options = [])
     {
-        echo "    > create index on " . $this->composeCollectionLogName($collection) . " (" . Json::encode((array) $columns) . empty($options) ? "" : ", " . Json::encode($options) . ") ...";
+        echo "    > create index on " . $this->composeCollectionLogName($collection) . " (" . Json::encode((array)$columns) . empty($options) ? "" : ", " . Json::encode($options) . ") ...";
         $time = microtime(true);
         $this->connection->getCollection($collection)->createIndex($columns, $options);
         echo " done (time: " . sprintf('%.3f', microtime(true) - $time) . "s)\n";
@@ -95,7 +95,7 @@ abstract class Migration implements MigrationInterface, ComponentsInterface
      */
     public function dropIndex($collection, $columns)
     {
-        echo "    > drop index on " . $this->composeCollectionLogName($collection) . " (" . Json::encode((array) $columns) . ") ...";
+        echo "    > drop index on " . $this->composeCollectionLogName($collection) . " (" . Json::encode((array)$columns) . ") ...";
         $time = microtime(true);
         $this->connection->getCollection($collection)->dropIndex($columns);
         echo " done (time: " . sprintf('%.3f', microtime(true) - $time) . "s)\n";

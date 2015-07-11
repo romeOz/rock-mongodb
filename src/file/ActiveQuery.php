@@ -107,7 +107,7 @@ class ActiveQuery extends Query implements ActiveQueryInterface
     {
         // before event
         /** @var ActiveRecord $model */
-        $model  = new $this->modelClass;
+        $model = new $this->modelClass;
         if (!$model->beforeFind()) {
             return null;
         }
@@ -144,7 +144,7 @@ class ActiveQuery extends Query implements ActiveQueryInterface
     {
         /* @var $modelClass ActiveRecord */
         $modelClass = $this->modelClass;
-        if (!isset($connection )) {
+        if (!isset($connection)) {
             $connection = $modelClass::getConnection();
         }
         $this->connection = $connection;

@@ -93,9 +93,9 @@ class Session extends \rock\session\Session
         } else {
             // shouldn't reach here normally
             $collection->insert([
-                                    'id' => $newID,
-                                    'expire' => new \MongoDate(time() + $this->getTimeout())
-                                ]);
+                'id' => $newID,
+                'expire' => new \MongoDate(time() + $this->getTimeout())
+            ]);
         }
     }
 

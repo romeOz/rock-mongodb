@@ -1,6 +1,7 @@
 <?php
 
 namespace rock\mongodb\sanitize\rules;
+
 use rock\components\sanitize\ModelRule;
 use rock\sanitize\SanitizeException;
 
