@@ -2,7 +2,7 @@
 
 namespace rockunit;
 
-use rock\db\common\ActiveDataProvider;
+use rock\data\ActiveDataProvider;
 use rockunit\models\ActiveRecord;
 use rockunit\models\Customer;
 use rock\mongodb\Query;
@@ -87,5 +87,39 @@ class ActiveDataProviderTest extends MongoDbTestCase
         ]);
         $models = $provider->getModels();
         $this->assertEquals(5, count($models));
+    }
+
+    public function testActiveQuerySort()
+    {
+        $query = new Query;
+        $query->from('customer');
+        $provider = new ActiveDataProvider([
+            'query' => $query,
+            'connection' => $this->getConnection(),
+            'sort' => [
+                'attributes' => ['name'],
+            ],
+            'pagination' => [
+                'limit' => 5,
+            ]
+        ]);
+
+        $this->assertEquals('name1', $provider->getModels()[0]['name']);
+
+
+        $_GET['sort'] = '-name';
+        $provider = new ActiveDataProvider([
+            'query' => $query,
+            'connection' => $this->getConnection(),
+            'sort' => [
+                'attributes' => ['name'],
+            ],
+            'pagination' => [
+                'limit' => 5,
+            ]
+        ]);
+
+        $this->assertEquals('name5', $provider->getModels()[0]['name']);
+        $_GET = [];
     }
 }

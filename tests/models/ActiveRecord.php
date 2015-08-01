@@ -13,5 +13,4 @@ class ActiveRecord extends \rock\mongodb\ActiveRecord
     {
         return self::$connection;
     }
-
 }
