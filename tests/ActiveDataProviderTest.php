@@ -119,7 +119,7 @@ class ActiveDataProviderTest extends MongoDbTestCase
             ]
         ]);
 
-        $this->assertEquals('name5', $provider->getModels()[0]['name']);
+        $this->assertEquals('name9', $provider->getModels()[0]['name']);
         $_GET = [];
     }
 }
