@@ -21,11 +21,11 @@ Features
  * Support [MongoGridFS](http://docs.mongodb.org/manual/core/gridfs/)
  * Behaviors (SluggableBehavior, TimestampBehavior,...)
  * Stores session data in a collection
+ * Data Provider (required by [Rock Data provider](https://github.com/romeOz/rock-dataprovider/))
  * **Validation and Sanitization rules for AR (Model)**
- * **Query Caching**
- * **Data Providers**
+ * **Query Caching** 
  * **MongoDB as key-value storage (Cache handler)**
- * **Module for [Rock Framework](https://github.com/romeOz/rock)**
+ * **Standalone module/component for [Rock Framework](https://github.com/romeOz/rock)**
  
 > Bolded features are different from [Yii2 MongoDB](https://github.com/yiisoft/yii2-mongodb).
 
