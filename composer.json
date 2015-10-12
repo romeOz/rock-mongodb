@@ -28,7 +28,7 @@
     "romeoz/rock-db-common": "*@dev"
   },
   "require-dev": {
-    "phpunit/phpunit": "~4.7.0",
+    "phpunit/phpunit": "^4.7.0",
     "romeoz/rock-dataprovider": "*@dev",
     "romeoz/rock-cache": "*@dev",
     "romeoz/rock-validate": "*@dev",
