@@ -23,7 +23,6 @@ Features
  * Data Provider (required by [Rock Data provider](https://github.com/romeOz/rock-dataprovider/))
  * **Validation and Sanitization rules for AR (Model)**
  * **Query Caching** 
- * **MongoDB as key-value storage (Cache handler)**
  * **Standalone module/component for [Rock Framework](https://github.com/romeOz/rock)**
  
 > Bolded features are different from [Yii2 MongoDB](https://github.com/yiisoft/yii2-mongodb).
@@ -76,13 +75,11 @@ Documentation
 
 * [Basic](https://github.com/yiisoft/yii2/blob/master/extensions/mongodb/README.md): Connecting to a database, basic queries, query builder, and Active Record
 * [Data Providers](https://github.com/romeOz/rock-mongodb/blob/master/docs/data-provider.md)
-* [Cache](https://github.com/romeOz/rock-mongodb/blob/master/docs/cache.md)
 
 Requirements
 -------------------
 
- * **PHP 5.4+**
- * [Rock Cache](https://github.com/romeOz/rock-cache) **(optional)**. Should be installed: `composer require romeoz/rock-cache:*`
+ * PHP 5.4+ 
  * [Rock Validate](https://github.com/romeOz/rock-validate) **(optional)**. Should be installed: `composer require romeoz/rock-validate:*`
  * [Rock Sanitize](https://github.com/romeOz/rock-sanitize) **(optional)**. Should be installed: `composer require romeoz/rock-sanitize:*`
  * [Rock Behaviors](https://github.com/romeOz/rock-behaviors) **(optional)**. Should be installed: `composer require romeoz/rock-behaviors:*`
