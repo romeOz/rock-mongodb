@@ -31,6 +31,7 @@
     "phpunit/phpunit": "^4.7.0",
     "romeoz/rock-dataprovider": "0.10.*",
     "romeoz/rock-cache": "0.14.*",
+    "romeoz/rock-file": "0.10.*",
     "romeoz/rock-validate": "0.10.*",
     "romeoz/rock-sanitize": "0.10.*"
   },
