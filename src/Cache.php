@@ -45,12 +45,6 @@ class Cache implements CacheInterface, EventsInterface
      * This collection is better to be pre-created with fields 'id' and 'expire' indexed.
      */
     public $cacheCollection = 'cache';
-    /**
-     * @var integer the probability (parts per million) that garbage collection (GC) should be performed
-     * when storing a piece of data in the cache. Defaults to 100, meaning 0.01% chance.
-     * This number should be between 0 and 1000000. A value 0 meaning no GC will be performed at all.
-     */
-    public $gcProbability = 100;
 
 
     public function __construct($config = [])
