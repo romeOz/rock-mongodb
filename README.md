@@ -32,7 +32,7 @@ Installation
 
 From the Command Line:
 
-`composer require romeoz/rock-mongodb:*`
+`composer require romeoz/rock-mongodb`
 
 In your composer.json:
 
