@@ -25,21 +25,21 @@
   ],
   "require": {
     "php": ">=5.4.0",
-    "romeoz/rock-db-common": "*@dev"
+    "romeoz/rock-db-common": "0.12.*"
   },
   "require-dev": {
     "phpunit/phpunit": "^4.7.0",
-    "romeoz/rock-dataprovider": "*@dev",
-    "romeoz/rock-cache": "*@dev",
-    "romeoz/rock-validate": "*@dev",
-    "romeoz/rock-sanitize": "*@dev"
+    "romeoz/rock-dataprovider": "0.10.*",
+    "romeoz/rock-cache": "0.14.*",
+    "romeoz/rock-validate": "0.10.*",
+    "romeoz/rock-sanitize": "0.10.*"
   },
   "suggest": {
-    "romeoz/rock-dataprovider": "required by Rock Data provider",
-    "romeoz/rock-cache": "required by Rock Cache",
-    "romeoz/rock-validate": "required by Rock Valiadte",
-    "romeoz/rock-sanitize": "required by Rock Sanitize",
-    "romeoz/rock-behaviors": "required by Rock Behaviors"
+    "romeoz/rock-dataprovider": "required for Data provider",
+    "romeoz/rock-cache": "required for caching queries",
+    "romeoz/rock-validate": "required for validation rules the model",
+    "romeoz/rock-sanitize": "required for sanitization rules the model",
+    "romeoz/rock-behaviors": "required for behaviors the model"
   },
   "autoload": {
     "psr-4": {
@@ -48,7 +48,7 @@
   },
   "extra": {
     "branch-alias": {
-      "dev-master": "0.12-dev"
+      "dev-master": "0.14-dev"
     }
   }
 }
