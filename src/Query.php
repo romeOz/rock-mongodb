@@ -183,8 +183,13 @@ class Query implements QueryInterface
         Trace::beginProfile('mongodb.query', $token);
 
         $cache = $cacheKey = null;
-        if (($result = $this->getCache($rawQuery, $token, $all, $indexBy, $cache, $cacheKey)) !== false) {
+        $lock = true;
+        if (($result = $this->getCache($rawQuery, $token, $all, $indexBy, $cache, $cacheKey, $lock)) !== false) {
             return $result;
+        }
+
+        if ($lock === false) {
+            return null;
         }
 
         try {
@@ -199,7 +204,9 @@ class Query implements QueryInterface
             $token['valid']     = false;
             $token['exception'] = defined('ROCK_DEBUG') && ROCK_DEBUG === true ? $e : $message;
             Trace::trace('mongodb.query', $token);
-
+            if (isset($cache, $cacheKey) && $cache instanceof CacheInterface) {
+                $cache->unlock($cacheKey);
+            }
             throw new MongoException($message, [], $e);
         }
     }
@@ -335,8 +342,12 @@ class Query implements QueryInterface
         Trace::beginProfile('mongodb.query', $token);
 
         $cache = $cacheKey = null;
-        if (($result = $this->getCache($rawQuery, $token, null, null, $cache, $cacheKey)) !== false) {
+        $lock = true;
+        if (($result = $this->getCache($rawQuery, $token, null, null, $cache, $cacheKey, $lock)) !== false) {
             return $result;
+        }
+        if ($lock === false) {
+            return 0;
         }
         try {
             $result = $cursor->count();
@@ -351,7 +362,9 @@ class Query implements QueryInterface
             $token['valid']     = false;
             $token['exception'] = defined('ROCK_DEBUG') && ROCK_DEBUG === true ? $e : $message;
             Trace::trace('mongodb.query', $token);
-
+            if (isset($cache, $cacheKey) && $cache instanceof CacheInterface) {
+                $cache->unlock($cacheKey);
+            }
             throw new MongoException($message, [], $e);
         }
     }
@@ -547,7 +560,7 @@ class Query implements QueryInterface
         return $sort;
     }
 
-    protected function getCache($rawQuery, $token, $all, $indexBy, &$cache, &$cacheKey)
+    protected function getCache($rawQuery, $token, $all, $indexBy, &$cache, &$cacheKey, &$lock = true)
     {
         /** @var $cache CacheInterface */
         if ($this->connection->enableQueryCache) {
@@ -564,6 +577,7 @@ class Query implements QueryInterface
 
                 return is_array($result) ? $this->fetchRowsAsArrayInternal($result, $all, $indexBy) : $result;
             }
+            $lock = $cache->lock($cacheKey);
         }
 
         return false;
@@ -577,6 +591,7 @@ class Query implements QueryInterface
                         $this->connection->queryCacheExpire,
                         $this->connection->queryCacheTags ? : (array)$this->from
             );
+            $cache->unlock($cacheKey);
         }
     }
 
