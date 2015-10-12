@@ -32,8 +32,7 @@
     "romeoz/rock-dataprovider": "*@dev",
     "romeoz/rock-cache": "*@dev",
     "romeoz/rock-validate": "*@dev",
-    "romeoz/rock-sanitize": "*@dev",
-    "romeoz/rock-session": "*@dev"
+    "romeoz/rock-sanitize": "*@dev"
   },
   "suggest": {
     "romeoz/rock-dataprovider": "required by Rock Data provider",
