@@ -3,9 +3,7 @@
 namespace rockunit\common;
 
 
-use League\Flysystem\Adapter\Local;
-use rock\cache\CacheFile;
-use rock\file\FileManager;
+use rock\cache\Memcached;
 use rock\helpers\FileHelper;
 
 trait CommonTestTrait
@@ -28,13 +26,6 @@ trait CommonTestTrait
      */
     protected static function getCache(array $config = [])
     {
-        if (empty($config)) {
-            $config = [
-                'adapter' => new FileManager([
-                    'adapter' => new Local(ROCKUNIT_RUNTIME),
-                ])
-            ];
-        }
-        return new CacheFile($config);
+        return new Memcached($config);
     }
 } 

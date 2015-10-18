@@ -25,12 +25,14 @@ matrix:
 
 services:
   - mongodb
+  - memcached
 
 install:
   - composer self-update && composer --version
   - composer install --prefer-dist
   - composer require satooshi/php-coveralls:*@dev
   - tests/data/travis/mongodb-setup.sh
+  - tests/data/travis/memcache-setup.sh
 
 before_script:
   - mongo rocktest --eval 'db.addUser("travis", "test");'
