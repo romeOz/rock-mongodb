@@ -107,7 +107,7 @@ class ActiveDataProviderTest extends MongoDbTestCase
         $this->assertEquals('name1', $provider->getModels()[0]['name']);
 
 
-        $_GET['sort'] = '-name';
+        $_SERVER['QUERY_STRING'] = 'sort=-name';
         $provider = new ActiveDataProvider([
             'query' => $query,
             'connection' => $this->getConnection(),
@@ -120,6 +120,6 @@ class ActiveDataProviderTest extends MongoDbTestCase
         ]);
 
         $this->assertEquals('name9', $provider->getModels()[0]['name']);
-        $_GET = [];
+        $_SERVER['QUERY_STRING'] = '';
     }
 }
