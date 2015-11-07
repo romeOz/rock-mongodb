@@ -289,7 +289,7 @@ class Connection implements ComponentsInterface, ConnectionInterface
                 Trace::endProfile('mongodb', $token);
             } catch (\Exception $e) {
                 Trace::endProfile('mongodb', $token);
-                throw new MongoException($e->getMessage(), [], $e);
+                throw new MongoException($e->getMessage(), [], 0, $e);
             }
         }
     }

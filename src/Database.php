@@ -136,7 +136,7 @@ class Database implements ObjectInterface
             $token['exception'] = defined('ROCK_DEBUG') && ROCK_DEBUG === true ? $e : $message;
             Trace::trace('mongodb.query', $token);
 
-            throw new MongoException($message, [], $e);
+            throw new MongoException($message, [], 0, $e);
         }
     }
 
@@ -173,7 +173,7 @@ class Database implements ObjectInterface
             $token['exception'] = defined('ROCK_DEBUG') && ROCK_DEBUG === true ? $e : $message;
             Trace::trace('mongodb.query', $token);
 
-            throw new MongoException($message, [], $e);
+            throw new MongoException($message, [], 0, $e);
         }
     }
 
@@ -197,7 +197,7 @@ class Database implements ObjectInterface
                 } else {
                     $errorCode = 0;
                 }
-                throw new MongoException($errorMessage, $errorCode);
+                throw new MongoException("$errorMessage. Code: $errorCode.");
             }
         } elseif (!$result) {
             throw new MongoException('Unknown error, use "w=1" option to enable error tracking');

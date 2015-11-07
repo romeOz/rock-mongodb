@@ -91,7 +91,7 @@ class Collection extends \rock\mongodb\Collection
             $token['exception'] = defined('ROCK_DEBUG') && ROCK_DEBUG === true ? $e : $message;
             Trace::trace('mongodb.query', $token);
 
-            throw new MongoException($message, [], $e);
+            throw new MongoException($message, [], 0, $e);
         }
     }
 
@@ -125,7 +125,7 @@ class Collection extends \rock\mongodb\Collection
             $token['exception'] = defined('ROCK_DEBUG') && ROCK_DEBUG === true ? $e : $message;
             Trace::trace('mongodb.query', $token);
 
-            throw new MongoException($message, [], $e);
+            throw new MongoException($message, [], 0, $e);
         }
     }
 
@@ -158,7 +158,7 @@ class Collection extends \rock\mongodb\Collection
             $token['exception'] = defined('ROCK_DEBUG') && ROCK_DEBUG === true ? $e : $message;
             Trace::trace('mongodb.query', $token);
 
-            throw new MongoException($message, [], $e);
+            throw new MongoException($message, [], 0, $e);
         }
     }
 

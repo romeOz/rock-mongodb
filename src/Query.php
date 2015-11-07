@@ -207,7 +207,7 @@ class Query implements QueryInterface
             if (isset($cache, $cacheKey) && $cache instanceof CacheInterface) {
                 $cache->unlock($cacheKey);
             }
-            throw new MongoException($message, [], $e);
+            throw new MongoException($message, [], 0, $e);
         }
     }
 
@@ -365,7 +365,7 @@ class Query implements QueryInterface
             if (isset($cache, $cacheKey) && $cache instanceof CacheInterface) {
                 $cache->unlock($cacheKey);
             }
-            throw new MongoException($message, [], $e);
+            throw new MongoException($message, [], 0, $e);
         }
     }
 
