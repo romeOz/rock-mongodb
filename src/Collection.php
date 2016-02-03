@@ -1084,7 +1084,6 @@ class Collection implements ObjectInterface
             'REGEX' => 'buildRegexCondition',
             'LIKE' => 'buildLikeCondition',
         ];
-
         if (!is_array($condition)) {
             throw new MongoException('Condition should be an array.');
         } elseif (empty($condition)) {
@@ -1094,12 +1093,12 @@ class Collection implements ObjectInterface
             $operator = strtoupper($condition[0]);
             if (isset($builders[$operator])) {
                 $method = $builders[$operator];
-                array_shift($condition);
-
-                return $this->$method($operator, $condition);
             } else {
-                throw new MongoException('Found unknown operator in query: ' . $operator);
+                $operator = $condition[0];
+                $method = 'buildSimpleCondition';
             }
+            array_shift($condition);
+            return $this->$method($operator, $condition);
         } else {
             // hash format: 'column1' => 'value1', 'column2' => 'value2', ...
             return $this->buildHashCondition($condition);
@@ -1317,6 +1316,41 @@ class Collection implements ObjectInterface
         }
 
         return [$column => $value];
+    }
+
+    /**
+     * Creates an Mongo condition like `{$operator:{field:value}}`.
+     * @param string $operator the operator to use. Besides regular MongoDB operators, aliases like `>`, `<=`,
+     * and so on, can be used here.
+     * @param array $operands the first operand is the column name.
+     * The second operand is a single value that column value should be compared with.
+     * @return string the generated Mongo condition.
+     * @throws MongoException if wrong number of operands have been given.
+     */
+    public function buildSimpleCondition($operator, $operands)
+    {
+        if (count($operands) !== 2) {
+            throw new MongoException("Operator '$operator' requires two operands.");
+        }
+        list($column, $value) = $operands;
+        if (strncmp('$', $operator, 1) !== 0) {
+            static $operatorMap = [
+                '>' => '$gt',
+                '<' => '$lt',
+                '>=' => '$gte',
+                '<=' => '$lte',
+                '!=' => '$ne',
+                '<>' => '$ne',
+                '=' => '$eq',
+                '==' => '$eq',
+            ];
+            if (isset($operatorMap[$operator])) {
+                $operator = $operatorMap[$operator];
+            } else {
+                throw new MongoException("Unsupported operator '{$operator}'.");
+            }
+        }
+        return [$column => [$operator => $value]];
     }
 
     protected function getCache($rawQuery, $token, &$cache, &$cacheKey)
