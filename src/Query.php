@@ -59,6 +59,12 @@ class Query implements QueryInterface
      */
     public $from;
     /**
+     * @var array cursor options in format: optionKey => optionValue
+     * @see \MongoCursor::addOption()
+     * @see options()
+     */
+    public $options = [];
+    /**
      * @var ConnectionInterface|Connection|string
      */
     public $connection = 'mongodb';
@@ -143,6 +149,36 @@ class Query implements QueryInterface
     }
 
     /**
+     * Sets the cursor options.
+     * @param array $options cursor options in format: optionName => optionValue
+     * @return $this the query object itself
+     * @see addOptions()
+     */
+    public function options(array $options)
+    {
+        $this->options = $options;
+
+        return $this;
+    }
+
+    /**
+     * Adds additional cursor options.
+     * @param array $options cursor options in format: optionName => optionValue
+     * @return $this the query object itself
+     * @see options()
+     */
+    public function addOptions(array $options)
+    {
+        if (is_array($this->options)) {
+            $this->options = array_merge($this->options, $options);
+        } else {
+                $this->options = $options;
+            }
+
+        return $this;
+    }
+
+    /**
      * Builds the Mongo cursor for this query.
      *
      * @param ConnectionInterface $connection the database connection used to execute the query.
@@ -156,6 +192,10 @@ class Query implements QueryInterface
         }
         $cursor->limit($this->limit);
         $cursor->skip($this->offset);
+
+        foreach ($this->options as $key => $value) {
+            $cursor->addOption($key, $value);
+        }
 
         return $cursor;
     }
